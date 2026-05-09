@@ -1,0 +1,5 @@
+@use '../../../shared/styles/mixins' as *;
+
+.logo__title {
+    @include text-h1;
+}

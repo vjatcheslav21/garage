@@ -1,0 +1,44 @@
+@use '../styles/variables' as *;
+
+@mixin text-h {
+	color: $text-h;
+	font-family: $font-heading;
+}
+
+@mixin text-h1 {
+	@include text-h;
+	font-size: 100px;
+	line-height: 40px;
+}
+
+@mixin text-h2 {
+	font-size: 24px;
+	line-height: 32px;
+}
+
+@mixin text-h3 {
+	font-size: 20px;
+	line-height: 24px;
+}
+
+@mixin text-h4 {
+	font-family: $font-base;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 24px;
+}
+
+@mixin text-descr {
+	font-family: $font-base;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16px;
+}
+
+@mixin text-btn {
+	font-family: $font-base;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 16px;
+}
+/* stylelint-enable at-rule-no-unknown */
