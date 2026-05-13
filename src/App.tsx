@@ -1,18 +1,14 @@
-import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from './assets/vite.svg'
-// import heroImg from './assets/hero.png'
-import './App.css'
-import { Logo } from './shared/ui/Logo/Logo';
+import { useState } from 'react';
+import './App.css';
+import { Header } from '@/widgets/Header';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <header>
-      <Logo/>
-    </header>
+    <Header/>
+
     <main></main>
       <section id="center">
         
@@ -55,7 +51,7 @@ function App() {
       <section id="spacer"></section>
 
       <footer></footer>
-    </>
+      </>
   )
 }
 
