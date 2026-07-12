@@ -1,54 +1,31 @@
-import { useState } from 'react';
+
+import { Main, Header } from '@/widgets';
 import './App.css';
-import { Header } from '@/widgets/Header';
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-    <Header/>
+      <Header/>
+      <Main/>
+      
+      {/* <div className="ticks"></div> */}
 
-    <main></main>
-      <section id="center">
-        
-          
-          <p>
-            здесь будут ваши записи
-          </p>
-        
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          
-        </div>
-        <div id="social">
+      {/* <section id="next-steps">
+      </section> */}
+        {/* <Modal title={''} children={undefined}/> */}
+      
+        {/* <div id="social">
           <svg className="icon" role="presentation" aria-hidden="true">
             <use href="/icons.svg#social-icon"></use>
           </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
+          <h2>Запланированно</h2>
+          <p>Предстоящее ТО</p>
           
-        </div>
-      </section>
+        </div> */}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      
 
       <footer></footer>
       </>

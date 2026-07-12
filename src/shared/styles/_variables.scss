@@ -1,13 +1,33 @@
 $font-heading: 'Airport', sans-serif;
 $font-base: 'NunitoSans', sans-serif;
-$white: #f3f4f6;;
+$white: #f3f4f6;
 $text: #6b6375;
 $text-h: $white;
 $text-menu: $white;
+$text-desc: rgb(244 243 236 / 50%);
+$link-hover: #6b6375;
 $bg: #001232;
+$bg-dropdown: #e0e0e0;
 $border: #e5e4e7;
-$code-bg: #f4f3ec;
+$btn-border: #2f303a80;
+$input-border: #2f303a80;
+$btn-bg: #f0f0f0;
 $accent: #aa3bff;
+$accent-blue: #456299;
+$btn-hover: #456299b5;
 $accent-bg: rgb(170 59 255 / 10%);
 $accent-border: rgb(170 59 255 / 50%);
 $social-bg: rgb(244 243 236 / 50%);
+
+:root {
+  --text: #6b6375;
+  --text: #f4f3ec;
+  --text-h: #08060d;
+  --bg: #001232;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgb(170 59 255 / 10%);
+  --accent-border: rgb(170 59 255 / 50%);
+  --social-bg: rgb(244 243 236 / 50%); 
+}

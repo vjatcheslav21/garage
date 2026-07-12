@@ -48,7 +48,7 @@
   right: 0;
   height: 100vh;
   width: 300px; 
-  background-color: #456299;
+  background-color: $accent-blue;
   box-shadow: -5px 0 15px #2e303a7d;
   
   transform: translateX(100%);
@@ -73,13 +73,13 @@
   margin: 20px 0;
 }
 
-.menu_list a {
+.menu_list-link {
   text-decoration: none;
   font-size: 24px;
   color: $text-menu;
   transition: color 0.3s;
 }
 
-.menu_list a:hover {
-  color: $text;
+.menu_list-link:hover {
+  color: $link-hover;
 }

@@ -1,0 +1,27 @@
+@use '../../../shared/styles/variables' as *;
+
+.button_plus {
+    width: 30px;
+    height: 30px; 
+    display: flex;
+    align-items: center;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    span {
+        color: $accent;
+        font-size: 50px;
+        display: inline-block;
+        transition: transform ease .5s;
+        &:hover, &:active {
+            font-size: 52px;
+        }
+        &:focus {
+            border: solid 1px $accent;
+        }
+    }
+    &.open span {
+    transform: rotate(45deg);
+}
+}
+

@@ -1,0 +1,17 @@
+@use '../../styles/variables' as *;
+
+.input_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input {
+    height: 35px;
+    border: 1px solid $input-border;
+    padding: 5px 10px;
+}
+
+.btn_input {
+    align-self: flex-end;
+}
