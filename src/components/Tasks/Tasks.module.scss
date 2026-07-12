@@ -1,0 +1,34 @@
+@use '../../shared/styles/mixins' as *;
+
+.tasks {
+    // flex: 1 1 0;
+    padding: 30px;
+    place-items: center;
+
+    @media (width <= 1024px) {
+      padding: 20px;
+    }
+
+    &_title {
+        @include text-h2;
+    }
+    
+    &_wrapper { 
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: start;
+        
+        @media (width <= 767px) {
+            grid-template-columns: unset;
+        }
+    }
+    
+    &_list {
+        margin-top: 15px;
+        &_title {
+            @include text-h3;
+            text-align: center;
+        }
+    }
+}

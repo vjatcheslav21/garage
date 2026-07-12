@@ -23,7 +23,7 @@ export const BurgerMenu = () => {
                     isOpen && styles.open
                 )} 
                 onClick={toggleMenu}
-                aria-label="Открыть меню"
+                aria-label="Открыть меню навигации"
             >
                 <span></span>
                 <span></span>
@@ -36,10 +36,34 @@ export const BurgerMenu = () => {
                     isOpen && styles.open
                 )}>
                 <ul className={styles['menu_list']}>
-                <li><a href="#home" onClick={closeMenu}>Главная</a></li>
-                <li><a href="#about" onClick={closeMenu}></a>Авто</li>
-                <li><a href="#contact" onClick={closeMenu}>Контакты</a></li>
-                <li><a href="#services" onClick={closeMenu}>Тема</a></li>
+                    <li className={styles['menu_list-item']}>
+                        <a className={styles['menu_list-link']} 
+                            href="#home" 
+                            onClick={closeMenu}>
+                                Главная
+                        </a>
+                        </li>
+                    <li className={styles['menu_list-item']}>
+                        <a className={styles['menu_list-link']} 
+                            href="#about"
+                            onClick={closeMenu}>
+                            Авто
+                         </a>
+                    </li>
+                    <li className={styles['menu_list-item']}>
+                        <a className={styles['menu_list-link']} 
+                            href="#contact" 
+                            onClick={closeMenu}>
+                            Контакты
+                        </a>
+                    </li>
+                    <li className={styles['menu_list-item']}>
+                        <a className={styles['menu_list-link']} 
+                            href="#services" 
+                            onClick={closeMenu}>
+                            Тема
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>

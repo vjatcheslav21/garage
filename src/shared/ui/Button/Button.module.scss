@@ -1,0 +1,17 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.btn {
+    width: 110px;
+    height: 100%;
+    padding: 5px 5px;
+    background-color: $btn-bg;
+    border: 1px solid $btn-border;
+    @include text-btn;
+    &:hover {
+        transform: scale(1.05);
+    }
+    &:active {
+        background-color: $btn-hover;
+    }
+}

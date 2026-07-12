@@ -1,13 +1,15 @@
 import { Logo } from "@/shared/ui";
 import styles from './Header.module.scss';
-import { BurgerMenu } from "@/components";
+import { BurgerMenu, NavBar } from "@/components";
+import { useMediaQuery } from "@/shared/hooks/useMediaQuery";
 
 
 export const Header = () => {
+    const isDesktop = useMediaQuery('(min-width: 1024px)');
     return(
         <header className={styles.header}>
             <Logo/>
-            <BurgerMenu/>
+            {isDesktop ? <NavBar/> : <BurgerMenu/>}
         </header>
     )
 }
