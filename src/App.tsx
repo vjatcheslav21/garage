@@ -1,6 +1,9 @@
 
 import { Main, Header } from '@/widgets';
 import './App.css';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { ProtectedRoute } from '@/components';
+import { AuthPage } from '@/pages';
 
 
 function App() {
@@ -8,23 +11,29 @@ function App() {
   return (
     <>
       <Header/>
-      <Main/>
+        <Routes>
+          <Route 
+            path='/'
+            element={
+              <Navigate to='/login'
+            />}/>
+          <Route 
+            path='/login' 
+            element={<AuthPage initialTab={'login'}/>}
+            />
+          <Route 
+            path='/signup' 
+            element={<AuthPage initialTab={'signup'}/>}
+            />
+          <Route 
+            path='/main' 
+            element={
+              <ProtectedRoute 
+                children={<Main/>}
+              />}
+          />
+        </Routes>
       
-      {/* <div className="ticks"></div> */}
-
-      {/* <section id="next-steps">
-      </section> */}
-        {/* <Modal title={''} children={undefined}/> */}
-      
-        {/* <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Запланированно</h2>
-          <p>Предстоящее ТО</p>
-          
-        </div> */}
-
       
 
       <footer></footer>

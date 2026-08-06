@@ -1,4 +1,4 @@
-import type { Task, TaskStatus } from "@/shared/types/type";
+import type { Task, TaskStatus } from "@/shared/types/types";
 import styles from './Item.module.scss';
 import { Button, EditTaskForm } from "@/shared/ui";
 import { cn } from "@/shared/lib/clsx";

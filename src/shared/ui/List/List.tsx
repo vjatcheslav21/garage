@@ -1,5 +1,5 @@
 
-import type { ListProps } from '@/shared/types/type';
+import type { ListProps } from '@/shared/types/types';
 import styles from './List.module.scss';
 import { cn } from '@/shared/lib/clsx';
 import { Item } from '@/shared/ui/Item';

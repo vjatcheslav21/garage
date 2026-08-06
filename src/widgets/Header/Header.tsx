@@ -1,7 +1,7 @@
 import { Logo } from "@/shared/ui";
 import styles from './Header.module.scss';
 import { BurgerMenu, NavBar } from "@/components";
-import { useMediaQuery } from "@/shared/hooks/useMediaQuery";
+import { useMediaQuery } from "@/storage/hooks/useMediaQuery";
 
 
 export const Header = () => {

@@ -1,10 +1,15 @@
 import { useState } from "react"
 import styles from './BurgerMenu.module.scss';
 import { cn } from "@/shared/lib/clsx";
+import { useAppDispatch, useAppSelector } from "@/storage/hooks/hooks";
+import { userLogout } from "@/storage/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export const BurgerMenu = () => {
-
+    const user = useAppSelector(state => state.user.user);
     const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsOpen(!isOpen)
@@ -12,6 +17,12 @@ export const BurgerMenu = () => {
 
     const closeMenu = () => {
         setIsOpen(false)
+    }
+
+    const logoutClick = () => {
+        dispatch(userLogout());
+        closeMenu()
+        navigate('/login')
     }
 
      return (
@@ -64,6 +75,16 @@ export const BurgerMenu = () => {
                             Тема
                         </a>
                     </li>
+                    {user && 
+                    <li className={styles['menu_list-item']}>
+                        <a className={styles['menu_list-link']} 
+                            href="#services" 
+                            onClick={logoutClick}>
+                            Выйти
+                        </a>
+                    </li>
+                    }
+                    
                 </ul>
             </nav>
         </div>
