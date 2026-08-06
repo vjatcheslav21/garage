@@ -8,15 +8,17 @@ interface ButtonProps {
     ariaLabelledby: string;
     type: "submit" | "button";
     onClick?: () => void;
+    disabled?: boolean;
 }
 
-export const Button = ({child, className, ariaLabelledby, type, onClick}: ButtonProps) => {
+export const Button = ({child, className, ariaLabelledby, type, onClick, disabled}: ButtonProps) => {
     return(
         <button 
             aria-labelledby={ariaLabelledby} 
             className={cn(styles.btn, className)}
             type={type}
-            onClick={onClick}>
+            onClick={onClick}
+            disabled={disabled}>
             {child}
         </button>
     )

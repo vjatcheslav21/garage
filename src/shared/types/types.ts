@@ -22,9 +22,25 @@ export interface ListProps {
     currentMileage: number;
 }
 
-export interface User {
+export interface UserRegistration {
     name: string;
+    email: string;
+    password: string;
+}
 
+export interface UserLogin {
+    email: string;
+    password: string 
+}
+
+export interface AuthResponse {
+    token: string;
+}
+
+export type TUser = {
+    name: string;
+    email: string;
+    token: string;
 }
 
 export interface Car {
@@ -32,3 +48,5 @@ export interface Car {
     userName: string;
     mileage: number;
 }
+
+export type RequestStatus = 'Idle' | 'Loading' | 'Success' | 'Failed';

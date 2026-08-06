@@ -1,6 +1,6 @@
 import styles from './Main.module.scss';
 import { Mileage, Tasks } from '@/components';
-import { useLocalStorage } from '@/shared/hooks/useLocalStorage';
+import { useLocalStorage } from '@/storage/hooks/useLocalStorage';
 
 
 

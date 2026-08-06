@@ -1,0 +1,22 @@
+@use '../../shared/styles/variables' as *;
+.auth {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+    background-color: $accent-bg;
+    justify-content: space-between;
+    min-height: 250px;
+    &_wrapper {
+        display: flex;
+        justify-content: space-around;
+    }
+    &_p {
+        text-align: end; 
+        a {
+            transition: all .1s ease;
+            &:hover {
+                color: $link-hover;
+            }
+        }
+    }
+}

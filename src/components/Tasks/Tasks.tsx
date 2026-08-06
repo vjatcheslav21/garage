@@ -1,10 +1,10 @@
 // Tasks.tsx
-import type { Task } from "@/shared/types/type";
+import type { Task } from "@/shared/types/types";
 import { List } from "@/shared/ui/List";
 import { useState } from "react";
 import styles from './Tasks.module.scss';
 import { AddTaskDropdown } from "@/components";
-import { useLocalStorage } from "@/shared/hooks/useLocalStorage";
+import { useLocalStorage } from "@/storage/hooks/useLocalStorage";
 
 interface TasksProps {
   currentMileage: number;

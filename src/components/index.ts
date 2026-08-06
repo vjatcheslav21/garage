@@ -5,3 +5,6 @@ export * from './Mileage';
 export * from './NavBar';
 export * from './AddTaskDropdown';
 export * from './Dropdown';
+export * from './Login';
+export * from './SignUp';
+export * from './ProtectedRoute';
