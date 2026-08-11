@@ -1,43 +1,30 @@
-// Tasks.tsx
-import type { Task } from "@/shared/types/types";
 import { List } from "@/shared/ui/List";
-import { useState } from "react";
 import styles from './Tasks.module.scss';
 import { AddTaskDropdown } from "@/components";
-import { useLocalStorage } from "@/storage/hooks/useLocalStorage";
+import { useAddTaskMutation, useDeleteTaskMutation, useGetTasksQuery, useUpdateTaskMutation } from "@/storage/utils/taskApi";
+import { useState } from "react";
 
 interface TasksProps {
   currentMileage: number;
 }
 
 export const Tasks = ({ currentMileage }: TasksProps) => {
-  const [tasks, setTasks] = useLocalStorage<Task[]>("carTask", []);
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
+  const { data, isLoading, isError } = useGetTasksQuery();
+  const [addNewTask, isAddingTask] = useAddTaskMutation();
+  const [deleteTask, isDeletedTask] = useDeleteTaskMutation();
+  const [updateTask, isUpdatedTask] = useUpdateTaskMutation();
 
   const handleAddTask = (text: string, targetMileage: number) => {
-    const newTask: Task = {
-      id: Date.now(),
-      text: text,
-      isDone: false,
-      targetMileage,
-      actualMileage: undefined,
-      description: ""
-    }
-    setTasks((prev) => [...prev, newTask]);
+    addNewTask({text, targetMileage});
   }
 
   const handleStartEdit = (id: number) => {
-    setEditingTaskId(id)
+    setEditingTaskId(id);
   }
 
   const handleSaveEdit = (id: number, newText: string, newDesc: string, newMileage: number) => {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id
-          ? { ...task, text: newText, description: newDesc, targetMileage: newMileage }
-          : task
-      )
-    );
+    updateTask({id: id, text: newText, description: newDesc, targetMileage: newMileage});
     setEditingTaskId(null);
   };
 
@@ -46,27 +33,21 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
   };
   
   const handleToggleTask = (id: number) => {
-    if (editingTaskId === id) return; 
-      setTasks((prev) =>
-          prev.map((task) => {
-              if (task.id === id) {
-                  const newIsDoneStatus = !task.isDone;
-                    return {
-                      ...task,
-                      isDone: newIsDoneStatus,
-                      actualMileage: newIsDoneStatus ? currentMileage : undefined, 
-                    };
-              }
-              return task;
-          })
-      );
+    if (editingTaskId === id) return;
+    const task = data?.find(t => t.id === id);
+    if(!task) return;
+    const newIsDoneStatus = !task.isDone;
+    updateTask({
+                id: id, 
+                isDone: newIsDoneStatus, 
+                actualMileage: newIsDoneStatus ? currentMileage: undefined
+              })
+    setEditingTaskId(null);
   };
 
-  const handleDeleteTask = (id: number) => {
-    setTasks((prev) => prev.filter((task) => task.id !== id));
-  }
+  const handleDeleteTask = (id: number) => { deleteTask(id) }
 
-  const inWorkTasks = tasks
+  const inWorkTasks = (data || [])
     .filter((t) => !t.isDone)
     .sort((a, b) => {
       const remainingA = a.targetMileage - currentMileage;
@@ -74,7 +55,7 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
       return remainingA - remainingB; 
     });
 
-  const isDoneTasks = tasks
+  const isDoneTasks = (data || [])
     .filter((t) => t.isDone)
     .sort((a, b) => (b.actualMileage || 0) - (a.actualMileage || 0));
 
@@ -82,7 +63,15 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
     <div className={styles.tasks}>
         <h2 className={styles.tasks_title}>Планировщик ТО</h2>
         <AddTaskDropdown onAddTask={handleAddTask} />
-        <div className={styles.tasks_wrapper}>
+        {isError 
+          ? 
+          'Ошибка' 
+          : 
+          isLoading 
+          ? 
+          'Загрузка' 
+          :
+          <div className={styles.tasks_wrapper}>
             <div className={styles.tasks_list}>
                 <h2 className={styles.tasks_list_title}>Запланировано</h2>
                 <List 
@@ -111,7 +100,8 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
                   currentMileage={currentMileage}      
                 />
             </div>
-        </div>
+        </div> 
+          }
     </div>
   );
 }

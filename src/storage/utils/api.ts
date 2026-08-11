@@ -1,6 +1,6 @@
 import type { AuthResponse, UserLogin, UserRegistration } from "@/shared/types/types";
 
-const BASE_URL = 'https://example.ru';
+export const BASE_URL = 'https://example.ru';
 
 export const loginUserApi = async(userLogin: UserLogin):Promise<AuthResponse> => {
     const res = await fetch(`${BASE_URL}/login`, {
