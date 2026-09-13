@@ -1,23 +1,23 @@
 import styles from './Main.module.scss';
 import { Mileage, Tasks } from '@/components';
-import { useLocalStorage } from '@/storage/hooks/useLocalStorage';
+import { useAppDispatch, useAppSelector } from '@/storage/hooks/hooks';
+import { editCar } from '@/storage/slices/carSlice';
 
 
 
-export const Main = () => {
-    
-    const [currentMileage, setCurrentMileage] = useLocalStorage<number>('carMileage', 20000);
+export const MainPage = () => {
+
+    const dispatch = useAppDispatch();
+    const currentMileage = useAppSelector(state => state.cars.carSelected?.mileage || 0);
 
     const handleMileageChange = (newMileage: number) => {
-      setCurrentMileage(newMileage);
+      dispatch(editCar({mileage: newMileage}))
     }
 
     return(
         <main> 
             <section className={styles.center}>
                 {/* <Intro name={'Salva'}/> */}
-                
-
                 <Mileage mileage={currentMileage} onUpdate={handleMileageChange}/>
                 {/* <section id="next-steps"></section> */}
                 <Tasks currentMileage={currentMileage}/>

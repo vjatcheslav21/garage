@@ -5,6 +5,7 @@ import { fetchUser } from "@/storage/thunks/thunks";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from './Login.module.scss';
+import { PasswordInput } from "@/shared/ui/PasswordInput/PasswordInput";
 
 export const Login = () => {
     const [loginData, setLoginData] = useState<UserLogin>({email: '', password: ''});
@@ -33,11 +34,11 @@ export const Login = () => {
                 onChange={(value) => setLoginData({...loginData, email: value})}
                 placeholder="Введите email"
                 />
-            <Input 
+            <PasswordInput
                 value={loginData.password} 
                 onChange={(value) => setLoginData({...loginData, password: value})}
                 placeholder="Введите пароль"
-                />
+            />
             <Button 
                 child={requestStatus !== 'Loading' ? "Отправить" : "Загрузка"} 
                 ariaLabelledby={"кнопка 'Войти в аккаунт'"} 

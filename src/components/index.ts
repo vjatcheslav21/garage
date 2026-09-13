@@ -8,3 +8,4 @@ export * from './Dropdown';
 export * from './Login';
 export * from './SignUp';
 export * from './ProtectedRoute';
+export * from './Slider';

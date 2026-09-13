@@ -1,0 +1,45 @@
+@use '../../shared/styles/variables' as *;
+
+.container {
+    max-width: 600px;
+    margin: 2rem auto;
+    position: relative;
+};
+
+.slides_track {
+    overflow: hidden;
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    background-color: $accent-blue;
+};
+
+.slider {
+    display: flex;
+};
+
+.slide {
+    min-width: 100%;
+    // height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+};
+
+.btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    z-index: 10;
+    &_prev {    
+        left: 0;
+    }
+    &_next {
+        right: 0;
+    }
+};
