@@ -31,6 +31,7 @@ const userSlice = createSlice({
             state.user = null;
             state.requestStatus = 'Idle';
             state.errorMessage = null;
+            localStorage.removeItem('user');
         }
     },
     extraReducers: (builder) => {
@@ -42,6 +43,7 @@ const userSlice = createSlice({
                 state.isAuth = true;
                 state.requestStatus = 'Success';
                 state.user = action.payload;
+                localStorage.setItem('user', JSON.stringify(action.payload))
             })
             .addCase(fetchUser.rejected, (state, action) => {
                 state.isAuth = false;
@@ -56,6 +58,7 @@ const userSlice = createSlice({
                 state.isAuth = true;
                 state.requestStatus = 'Success';
                 state.user = action.payload;
+                localStorage.setItem('user', JSON.stringify(action.payload))
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.isAuth = false;

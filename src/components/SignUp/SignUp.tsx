@@ -5,6 +5,7 @@ import { registerUser } from "@/storage/thunks/thunks";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from './SignUp.module.scss';
+import { PasswordInput } from "@/shared/ui/PasswordInput/PasswordInput";
 
 export const SignUp = () => {
 
@@ -38,11 +39,16 @@ export const SignUp = () => {
                     onChange={(value) => setRegistrationData({...registrationData, name: value})}
                     placeholder="Придумайте имя"
                     />
-                <Input 
+                {/* <Input 
                     value={registrationData.password} 
                     onChange={(value) => setRegistrationData({...registrationData, password: value})}
                     placeholder="Придумайте пароль"
-                    />
+                    /> */}
+                <PasswordInput
+                    value={registrationData.password} 
+                    onChange={(value) => setRegistrationData({...registrationData, password: value})}
+                    placeholder="Придумайте пароль"
+                />
                 <Button 
                     child={requestStatus !== 'Loading' ? "Отправить" : "Загрузка"} 
                     ariaLabelledby={"кнопка 'Войти в аккаунт'"} 

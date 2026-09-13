@@ -7,11 +7,12 @@ interface DropdownProps {
     title: string;
     children: ReactNode;
     ariaLabelledBy: string;
+    description?: string;
     onSave: () => boolean; 
     onOpen?: () => void;    
 }
 
-export const Dropdown = ({title, children, ariaLabelledBy, onSave, onOpen}: DropdownProps) => {
+export const Dropdown = ({title, children, ariaLabelledBy, onSave, onOpen, description}: DropdownProps) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -46,19 +47,20 @@ export const Dropdown = ({title, children, ariaLabelledBy, onSave, onOpen}: Drop
     }, [isOpen]);
 
     return (
-        <div className={cn(styles.dropdownContainer, isOpen && styles.active)} ref={dropdownRef}>
-            <div className={styles.triggerArea} onClick={toggle}>
-                <span>{title}</span>
+        <div className={cn(styles['dropdown_container'], isOpen && styles.active)} ref={dropdownRef}>
+            <div className={styles['trigger_area']} onClick={toggle}>
+                <span className={styles['title']}>{title}</span>
                 <Plus
                     isOpen={isOpen} 
                     ariaLabelledBy={ariaLabelledBy} 
                 />
             </div>
-            <div className={cn(styles.dropdownMenu, isOpen && styles.open)}>
+            <div className={cn(styles['dropdown_menu'], isOpen && styles.open)}>
+                <p className={styles['dropdown_menu-descr']}>{description}</p>
                 {children} 
                 <Button 
                     ariaLabelledby={'сохранить'} 
-                    className={styles.btn_save} 
+                    className={styles['btn_save']} 
                     child={'cохранить'} 
                     type={'button'}
                     onClick={handleSave}

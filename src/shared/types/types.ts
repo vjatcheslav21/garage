@@ -25,7 +25,7 @@ export interface ListProps {
 export interface UserRegistration {
     name: string;
     email: string;
-    password: string;
+    password?: string;
 }
 
 export interface UserLogin {
@@ -40,13 +40,15 @@ export interface AuthResponse {
 export type TUser = {
     name: string;
     email: string;
-    token: string;
+    token?: string;
 }
 
 export interface Car {
-    name?: string;
-    userName: string;
-    mileage: number;
+    name: string;
+    id: string;
+    mileage: number | null;
 }
+
+export type BasicCarInfo = Pick<Car, 'name' | 'mileage'>
 
 export type RequestStatus = 'Idle' | 'Loading' | 'Success' | 'Failed';

@@ -1,0 +1,13 @@
+@use '../../../../shared/styles/mixins' as *;
+
+.onboard {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    &_title {
+        @include text-h2;
+    }
+    &_btn {
+        align-self: end;
+    }
+}

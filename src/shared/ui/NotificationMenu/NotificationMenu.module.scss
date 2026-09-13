@@ -1,0 +1,83 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.notification {
+    position: relative;
+    z-index: 1;
+    transition: z-index 0s .3s;
+        &.active {
+            z-index: 10;
+            transition: z-index 0s;
+        }
+
+        &_trigger {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+                &:hover {
+                    color: $link-hover;
+                }
+        }
+        &_red_dot {
+            position: absolute;
+            top: 0;
+            right: -10px;
+            width: 8px;
+            height: 8px;
+            border-radius: 100px;
+            background-color: red;
+        }
+
+        &_dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            z-index: 10;
+            // width: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: $bg-dropdown;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 10px 5px;
+
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: -6px;
+                left: 20px; 
+                width: 12px;
+                height: 12px;
+                background: #e0e0e0;
+                transform: rotate(45deg); 
+            }
+            &.open {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+        }
+        &_dropdown-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+        &_dropdown-item {
+            @include text-notification;
+            border-bottom: 1px solid black;
+            cursor: pointer;
+            &:hover {
+                background-color: #d0d0d0;
+            }
+        }
+    }
+

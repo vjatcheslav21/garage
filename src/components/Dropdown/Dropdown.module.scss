@@ -1,23 +1,28 @@
 @use '../../shared/styles/variables' as *;
-.dropdownContainer {
+
+.dropdown_container {
   position: relative;
   z-index: 1;
   transition: z-index 0s .3s;
 }
 
-.dropdownContainer.active {
+.dropdown_container.active {
   z-index: 10;
   transition: z-index 0s;
 }
 
-.triggerArea {
+.trigger_area {
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
 }
 
-.dropdownMenu {
+.trigger_area:hover .title {
+  color: $link-hover;
+}
+
+.dropdown_menu {
   position: absolute;
   top: calc(100% + 10px);
   left: 0;
@@ -47,9 +52,12 @@
     background: #e0e0e0;
     transform: rotate(45deg); 
   }
+  &-descr {
+    color: $text;
+  }
 }
 
-.dropdownMenu.open {
+.dropdown_menu.open {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
