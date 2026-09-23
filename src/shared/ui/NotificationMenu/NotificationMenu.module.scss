@@ -17,7 +17,7 @@
             gap: 10px;
             cursor: pointer;
                 &:hover {
-                    color: $link-hover;
+                    color: var(--link-hover);
                 }
         }
         &_red_dot {

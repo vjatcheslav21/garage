@@ -19,10 +19,14 @@ export const CreateCar = ({carName, onNameChange, carMileage, onMileageChange,  
     return (
         <>
             <form className={styles.form} onSubmit={handleSubmit}>
+            <label className={styles.form_label} htmlFor="car">Название машины</label>
                 <Input 
                     value={carName} 
-                    placeholder="Введите название машины" 
+                    id={"car"}
+                    placeholder="Введите название авто" 
                     onChange={onNameChange}/>
+                    
+            <label className={styles.form_label} htmlFor="car">Пробег</label>
                 <Input
                     type="number"
                     value={String(carMileage)} 

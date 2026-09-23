@@ -6,12 +6,12 @@
   gap: 10px;
   transition: background-color 0.2s ease;
   padding: 10px 5px;
-
+  position: relative;
   width: 300px;
   &:hover {
-    background-color: $btn-hover;
+    background-color: var(--accent-bg);
     .status_waiting {
-      color: $white;
+      color: var(--text);
     }
     .dots_btn {
       opacity: 1;
@@ -28,7 +28,7 @@
     &_description {
       margin: 0;
       font-size: 13px;
-      color: $text-desc;
+      color: var(--text-task-desc);
       line-height: 1.4;
       white-space: nowrap;
       overflow: hidden;

@@ -1,7 +1,10 @@
 .form {
     display: flex;
     flex-direction: column;   
-    gap: 10px;
+    gap: 5px;
+    &_label {
+        font-size: 12px
+    }
     &_btn {
         align-self: end;
     }

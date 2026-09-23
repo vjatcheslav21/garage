@@ -60,8 +60,8 @@ export const Dropdown = ({title, children, ariaLabelledBy, onSave, onOpen, descr
                 {children} 
                 <Button 
                     ariaLabelledby={'сохранить'} 
-                    className={styles['btn_save']} 
-                    child={'cохранить'} 
+                    variant="save"
+                    child={'Сохранить'} 
                     type={'button'}
                     onClick={handleSave}
                 />

@@ -3,7 +3,7 @@
 .tasks {
     padding: 30px;
     place-items: center;
-
+    min-height: min-content;
     @media (width <= 1024px) {
       padding: 20px;
     }
@@ -25,6 +25,7 @@
     
     &_list {
         margin-top: 15px;
+        position: relative;
         &_title {
             @include text-h3;
             text-align: center;

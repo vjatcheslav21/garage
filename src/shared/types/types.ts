@@ -52,3 +52,5 @@ export interface Car {
 export type BasicCarInfo = Pick<Car, 'name' | 'mileage'>
 
 export type RequestStatus = 'Idle' | 'Loading' | 'Success' | 'Failed';
+
+export type Theme = 'light' | 'dark';

@@ -1,22 +1,35 @@
-import type { RequestStatus, TUser } from "@/shared/types/types";
+import type { RequestStatus, Theme, TUser } from "@/shared/types/types";
 import { USER_SLICE_NAME } from "@/storage/slices/sliceNames";
 import { fetchUser, registerUser } from "@/storage/thunks/thunks";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
+const getTheme = ():Theme => {
+    const theme = `${window?.localStorage?.getItem('theme')}`;
+    if (['light', 'dark'].includes(theme)) return theme as Theme;
+
+    const userMedia = window.matchMedia('(prefers-color-scheme: light)');
+    if (userMedia.matches) return 'light';
+
+    return 'dark';
+}
+
+const userFromStorage = localStorage.getItem('user');
+const savedUser = userFromStorage ? JSON.parse(userFromStorage) : null;
 interface UserState {
     user: TUser | null;
     isAuth: boolean;
     requestStatus: RequestStatus;
-    errorMessage: string | null
+    errorMessage: string | null;
+    themeColor: Theme;
 }
 
 const initialState: UserState = {
-    user: null,
-    isAuth: false,
+    user: savedUser,
+    isAuth: !!savedUser,
     requestStatus: 'Idle',
-    errorMessage: null
+    errorMessage: null,
+    themeColor: getTheme()
 }
-
 
 const userSlice = createSlice({
     name: USER_SLICE_NAME,
@@ -32,6 +45,9 @@ const userSlice = createSlice({
             state.requestStatus = 'Idle';
             state.errorMessage = null;
             localStorage.removeItem('user');
+        },
+        toggleTheme:(state, action: PayloadAction<Theme>) => {
+            state.themeColor = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -68,5 +84,5 @@ const userSlice = createSlice({
     }
 })
 
-export const {userLogin, userLogout} = userSlice.actions;
+export const {userLogin, userLogout, toggleTheme} = userSlice.actions;
 export default userSlice.reducer;

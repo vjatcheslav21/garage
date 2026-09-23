@@ -54,13 +54,6 @@ export const EditTaskForm = ({ initialText, initialDescription, initialMileage, 
              onChange={(valueStr) => setEditMileage(parseInt(valueStr, 10) || 0)}
              placeholder="На каком пробеге?"   
           />
-          {/* <input 
-            className={styles.edit_input}
-            value={editText}
-            onChange={(e) => setEditText(e.target.value)}
-            placeholder="Название задачи"
-            autoFocus
-          /> */}
           <textarea 
             className={styles.edit_textarea}
             value={editDesc}
@@ -69,16 +62,18 @@ export const EditTaskForm = ({ initialText, initialDescription, initialMileage, 
             rows={2}
           />
           <div className={styles.edit_actions}>
-            {/* <button className={styles.btn_save} onClick={() => onSave(editText, editDesc, editMileage)}>Сохранить</button>
-            <button className={styles.btn_cancel} onClick={onCancel}>Отмена</button> */}
             <Button 
-              className={styles.btn_save}
+              variant="save"
               onClick={() => onSave(editText, editDesc, editMileage)}
-              ariaLabelledby="сохранить" child={"Сохранить"} type={"button"}/>
+              ariaLabelledby="сохранить" 
+              child={"Сохранить"} 
+              type={"button"}/>
             <Button 
-              className={styles.btn_cancel}
+              variant="cancel"
               onClick={onCancel}
-              ariaLabelledby="кнопка отмены" child={"Отмена"} type={"button"}/>
+              ariaLabelledby="кнопка отмены" 
+              child={"Отмена"} 
+              type={"button"}/>
           </div>
         </div>
       </div>

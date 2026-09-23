@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 
 export const Header = () => {
+    const isAuth = useAppSelector(state => state.user.isAuth);
     const isDesktop = useMediaQuery('(min-width: 1024px)');
     const isCheckedMileage = useAppSelector(state => state.cars.isCheckedMileage);
     const [showDot, setShowDot] = useState(false);
@@ -20,12 +21,14 @@ export const Header = () => {
     return(
         <header className={styles.header}>
             <Logo/>
-            {isDesktop ? 
-                <NavBar 
-                    showDot={showDot} 
-                    onOpen={() => setShowDot(false)}/> 
-                        : 
-                <BurgerMenu/>}
+                {isAuth &&
+                    (isDesktop ? 
+                        <NavBar 
+                            showDot={showDot} 
+                            onOpen={() => setShowDot(false)}/> 
+                                : 
+                        <BurgerMenu/> )
+                }  
         </header>
     )
 }

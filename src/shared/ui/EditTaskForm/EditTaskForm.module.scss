@@ -1,10 +1,16 @@
 @use '../../styles/variables' as *;
 
 .editing_mode {
-  background-color: $bg-dropdown; 
-  border: 1px solid #ffe082;
-  padding: 5px;
+  background-color: var(--bg-dropdown); 
+  box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 10px;
   margin-bottom: 10px;
+  min-width: min-content;
+  min-height: min-content;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 .edit_form {
@@ -47,11 +53,15 @@
 .btn_save {
   background-color: #4caf50;
   color: white;
-  &:hover { background-color: #45a049; }
+  &:hover { 
+    background-color: #45a049; 
+  }
 }
 
 .btn_cancel {
   background-color: #e0e0e0;
   color: #333;
-  &:hover { background-color: #d0d0d0; }
+  &:hover { 
+    background-color: #d0d0d0; 
+  }
 }
