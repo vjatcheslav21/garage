@@ -11,9 +11,12 @@ interface TasksProps {
 export const Tasks = ({ currentMileage }: TasksProps) => {
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
   const { data, isLoading, isError } = useGetTasksQuery();
-  const [addNewTask, isAddingTask] = useAddTaskMutation();
-  const [deleteTask, isDeletedTask] = useDeleteTaskMutation();
-  const [updateTask, isUpdatedTask] = useUpdateTaskMutation();
+  const [addNewTask] = useAddTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
+  const [updateTask] = useUpdateTaskMutation();
+  // const [addNewTask, isAddingTask] = useAddTaskMutation();
+  // const [deleteTask, isDeletedTask] = useDeleteTaskMutation();
+  // const [updateTask, isUpdatedTask] = useUpdateTaskMutation();
 
   const handleAddTask = (text: string, targetMileage: number) => {
     addNewTask({text, targetMileage});
