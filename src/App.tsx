@@ -2,7 +2,7 @@
 import { Header } from '@/widgets';
 import './App.css';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Intro, ProtectedRoute } from '@/components';
+import { ProtectedRoute } from '@/components';
 import { AuthPage, IntroPage, MainPage } from '@/pages';
 import { useAppDispatch, useAppSelector } from '@/storage/hooks/hooks';
 import { useEffect, useState } from 'react';
