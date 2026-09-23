@@ -6,10 +6,11 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    border-bottom: 1px solid $border;
+    border-bottom: 1px solid var(--border);
     padding: 30px 0 ;
     &_title {
       @include text-h2;
+      
     }
 }
 
@@ -28,12 +29,12 @@
 
   &::before {
     left: 0;
-    border-left-color: $border;
+    border-left-color: $accent-border;
   }
 
   &::after {
     right: 0;
-    border-right-color: $border;
+    border-right-color: $accent-border;
   }
 }
 // .spacer {

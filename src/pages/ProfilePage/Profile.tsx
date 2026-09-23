@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/storage/hooks/hooks";
 import styles from './Profile.module.scss';
-import { Button, Input } from "@/shared/ui";
+import { Button, Input, ToggleTheme } from "@/shared/ui";
 import { useState } from "react";
 import type { TUser } from "@/shared/types/types";
 import { userLogin, userLogout } from "@/storage/slices/userSlice";
@@ -68,12 +68,16 @@ export const Profile = () => {
                     </Dropdown>
                 </div> 
             </div> 
-            <Button 
-                child={"Выйти из аккаунта"} 
-                ariaLabelledby={"Кнопка 'выйти из аккаунта'"} 
-                type={"button"} 
-                onClick={logoutUser}
-                />        
+            <div className={styles.profile__settings}>
+                <ToggleTheme/>
+                <Button 
+                    className={styles.profile__settings_btn}
+                    child={"Выйти из аккаунта"} 
+                    ariaLabelledby={"Кнопка 'выйти из аккаунта'"} 
+                    type={"button"} 
+                    onClick={logoutUser}
+                    />  
+            </div>     
         </div>
     )
 }

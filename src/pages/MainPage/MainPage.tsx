@@ -6,18 +6,15 @@ import { editCar } from '@/storage/slices/carSlice';
 
 
 export const MainPage = () => {
-
     const dispatch = useAppDispatch();
     const currentMileage = useAppSelector(state => state.cars.carSelected?.mileage || 0);
 
     const handleMileageChange = (newMileage: number) => {
       dispatch(editCar({mileage: newMileage}))
     }
-
     return(
         <main> 
             <section className={styles.center}>
-                {/* <Intro name={'Salva'}/> */}
                 <Mileage mileage={currentMileage} onUpdate={handleMileageChange}/>
                 {/* <section id="next-steps"></section> */}
                 <Tasks currentMileage={currentMileage}/>

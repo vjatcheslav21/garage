@@ -1,4 +1,5 @@
 @use '../../shared/styles/variables' as *;
+@use '../../shared/styles/mixins' as *;
 
 .burger_container {
   position: relative;
@@ -22,7 +23,7 @@
 .burger_btn span {
   width: 40px;
   height: 4px;
-  background-color: #fff; 
+  background-color: var(--text); 
   border-radius: 10px;
   transition: all 0.3s linear;
   position: relative;
@@ -48,7 +49,7 @@
   right: 0;
   height: 100vh;
   width: 300px; 
-  background-color: $accent-blue;
+  background-color: var(--accent-bg);
   box-shadow: -5px 0 15px #2e303a7d;
   
   transform: translateX(100%);
@@ -76,10 +77,12 @@
 .menu_list-link {
   text-decoration: none;
   font-size: 24px;
-  color: $text-menu;
+  color: var(--text-menu);
   transition: color 0.3s;
 }
-
-.menu_list-link:hover {
-  color: $link-hover;
+.nav_item {
+    @include text-h2;
+    :hover {
+      color: var(--nav-link-hover);
+    }
 }

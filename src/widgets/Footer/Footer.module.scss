@@ -1,0 +1,14 @@
+.footer {
+    min-height: 150px;
+    padding-bottom: 10px;
+    align-content: flex-end;
+    font-size: 10px;
+    flex-grow: 1;
+    margin: auto;
+    &__list {
+        list-style-type: disc;
+        li:hover {
+            color: var(--nav-link-hover)
+        }
+    }
+}

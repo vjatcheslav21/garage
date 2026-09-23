@@ -1,33 +1,23 @@
-
-import { Header } from '@/widgets';
+import { Footer, Header } from '@/widgets';
 import './App.css';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from '@/components';
 import { AuthPage, IntroPage, MainPage } from '@/pages';
-import { useAppDispatch, useAppSelector } from '@/storage/hooks/hooks';
-import { useEffect, useState } from 'react';
-import { userLogin } from '@/storage/slices/userSlice';
+import { useAppSelector } from '@/storage/hooks/hooks';
 import { Profile } from '@/pages/ProfilePage';
+import { useEffect } from 'react';
 
 
 function App() {
 
-  const [isInitializing, setIsInitializing] = useState(true);
+  const userIsAuth = useAppSelector(state => state.user.isAuth);
   const cars = useAppSelector(state => state.cars.cars);
-  const dispatch = useAppDispatch();
+  const theme = useAppSelector(state => state.user.themeColor);
 
-  useEffect(() => {
-    const userStr = localStorage.getItem('user');
-      if (userStr) {
-          const user = JSON.parse(userStr);
-          dispatch(userLogin(user));
-      }
-          setIsInitializing(false);
-  },[])
-
-  if (isInitializing) {
-      return <div>Проверка авторизации...</div>
-  }
+    useEffect(() => {
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem('theme', theme);
+    }, [ theme ]);
 
   return (
     <>
@@ -36,7 +26,7 @@ function App() {
           <Route 
             path='/'
             element={
-              <Navigate to='/login'
+              <Navigate to={userIsAuth ? '/main' : '/login'}
             />}/>
           <Route 
             path='/login' 
@@ -50,7 +40,6 @@ function App() {
             path='/main' 
             element={
               <ProtectedRoute 
-                // children={cars.length === 0 ? <Intro name='Salva' /> : <MainPage />}
                 children={cars.length === 0 ? <IntroPage/> : <MainPage />}
               />}
           />
@@ -62,10 +51,7 @@ function App() {
               />}
           />
         </Routes>
-      
-      
-
-      <footer></footer>
+        <Footer/>
       </>
   )
 }

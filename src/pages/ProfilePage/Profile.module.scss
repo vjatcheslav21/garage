@@ -1,9 +1,10 @@
 @use '../../shared/styles/variables' as *;
+
 .profile {
     display: flex;
     flex-direction: column;
     padding: 20px 30px;
-    background-color: $accent-bg;
+    background-color: var(--accent-bg);
     justify-content: space-between;
     min-height: 250px;
     &__info {
@@ -11,5 +12,10 @@
         flex-direction: column;
         align-items: center;
         gap: 20px;
+    }
+    &__settings {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end
     }
 }

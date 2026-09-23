@@ -1,34 +1,43 @@
+// $font-heading: 'Airport', sans-serif;
+// $font-base: 'NunitoSans', sans-serif;
+// $white: #f3f4f6;
+// $text: #6b6375;
+// $text-h: $white;
+// $text-menu: $white;
+// $text-desc: rgb(244 243 236 / 50%);
+// $link-hover: #6b6375;
+// $link-hover-white: #f3f4f6;
+// $bg: #001232;
+// $bg-dropdown: #e0e0e0;
+// $border: #e5e4e7;
+// $btn-border: #2f303a80;
+// $input-border: #2f303a80;
+// $btn-bg: #f0f0f0;
+// $accent: #aa3bff;
+// $accent-blue: #456299;
+// $btn-hover: #456299b5;
+// $accent-bg: rgb(170 59 255 / 10%);
+// $accent-border: rgb(170 59 255 / 50%);
+// $social-bg: rgb(244 243 236 / 50%);
+// $tablet-width: 1024px;
+
+// Шрифты — нужны в SCSS, не меняются между темами
 $font-heading: 'Airport', sans-serif;
 $font-base: 'NunitoSans', sans-serif;
-$white: #f3f4f6;
-$text: #6b6375;
-$text-h: $white;
-$text-menu: $white;
-$text-desc: rgb(244 243 236 / 50%);
-$link-hover: #6b6375;
-$link-hover-white: #f3f4f6;
-$bg: #001232;
-$bg-dropdown: #e0e0e0;
-$border: #e5e4e7;
-$btn-border: #2f303a80;
-$input-border: #2f303a80;
-$btn-bg: #f0f0f0;
+
+// Брейкпоинт — нужен в медиа‑запросах SCSS
+$tablet-width: 1024px;
+
+// Общие цвета (одинаковые в обеих темах) — удобно держать в $, чтобы править в одном месте
 $accent: #aa3bff;
-$accent-blue: #456299;
-$btn-hover: #456299b5;
 $accent-bg: rgb(170 59 255 / 10%);
 $accent-border: rgb(170 59 255 / 50%);
 $social-bg: rgb(244 243 236 / 50%);
 
-:root {
-  --text: #6b6375;
-  --text: #f4f3ec;
-  --text-h: #08060d;
-  --bg: #001232;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgb(170 59 255 / 10%);
-  --accent-border: rgb(170 59 255 / 50%);
-  --social-bg: rgb(244 243 236 / 50%); 
-}
+// Вспомогательные цвета для компонентов (кнопки, границы и т. п.)
+$btn-border: #2f303a80;
+$input-border: #2f303a80;
+$btn-bg: #f0f0f0;
+$accent-blue: #456299;
+$btn-hover: #456299b5;
+$bg-dropdown: #e0e0e0;

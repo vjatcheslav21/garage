@@ -67,18 +67,6 @@ export const Item = ({
         }
     }
 
-    if (isEditing) {
-    return(
-        <EditTaskForm 
-            initialText={task.text} 
-            initialDescription={task.description} 
-            initialMileage={task.targetMileage}
-            onSave={(text, desc, mileage) => onSave(text, desc, mileage)}
-            onCancel={onCancel} 
-        />
-    )
-  }
-
     return(
         <div className={styles.item}>
                 <Button 
@@ -86,10 +74,10 @@ export const Item = ({
                     ariaLabelledby={isDone ? `Отметить задачу "${task.text}" как не выполненную` : `Отметить задачу "${task.text}" как выполненную`}
                     type='button' 
                     className={styles.item_btn}
+                    variant="checkbox"
                     onClick={
-                    // e.stopPropagation(); // ВАЖНО: чтобы клик по галочке не открывал редактирование
                     onToggle
-                    }/>
+                }/>
                     
             <div className={styles.item_content} onClick={onStartEdit}>
                 <li className={cn(styles.item_text, isDone && styles.item_done)}>{task.text}</li>
@@ -130,6 +118,13 @@ export const Item = ({
                     </div>
                 )}
             </div>
+            {isEditing ? <EditTaskForm 
+                initialText={task.text} 
+                initialDescription={task.description} 
+                initialMileage={task.targetMileage}
+                onSave={(text, desc, mileage) => onSave(text, desc, mileage)}
+                onCancel={onCancel} 
+            /> : null }
         </div>
     )
 }

@@ -1,0 +1,13 @@
+@use '../../styles/mixins' as *;
+
+.theme {
+    @include text-h4;
+    cursor: pointer;
+    :hover {
+        color: red
+    }
+}
+
+.theme:hover {
+        color: var(--link-hover-light)
+}

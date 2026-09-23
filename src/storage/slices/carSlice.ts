@@ -32,7 +32,12 @@ const carSlice = createSlice({
             const carToUpdate = state.cars.find((car) => car.id === state.carSelected?.id)
             if (carToUpdate) {
                 carToUpdate.mileage = action.payload.mileage;
+                if (state.carSelected) 
+                    { state.carSelected.mileage = action.payload.mileage;
+                      localStorage.setItem('car', JSON.stringify(action.payload));
+                    }
             }
+            
         }
     },
     extraReducers: (builder) => {

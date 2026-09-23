@@ -1,7 +1,7 @@
 @use '../styles/variables' as *;
 
 @mixin text-h {
-	color: $text-h;
+	color: var(--text-h);
 	font-family: $font-heading;
 }
 
@@ -17,7 +17,7 @@
 }
 
 @mixin text-h2 {
-	color: $text-h;
+	// color: var(--text-h);
 	font-size: 30px;
 	@media (width <= 1024px) {
 		font-size: 26px;
@@ -48,6 +48,7 @@
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 16px;
+	color: var(--text-desc);
 }
 
 @mixin text-notification {
@@ -61,7 +62,8 @@
 @mixin text-btn {
 	font-family: $font-base;
 	font-weight: 400;
-	font-size: 18px;
+	font-size: 13px;
 	line-height: 16px;
+	color: var(--text-btn);
 }
 /* stylelint-enable at-rule-no-unknown */

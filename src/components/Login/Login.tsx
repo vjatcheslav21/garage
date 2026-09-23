@@ -44,6 +44,7 @@ export const Login = () => {
                 ariaLabelledby={"кнопка 'Войти в аккаунт'"} 
                 type={"submit"} 
                 className={styles['btn__form-login']}
+                variant="default"
                 disabled={requestStatus === 'Loading'}
                 />
         </form>
