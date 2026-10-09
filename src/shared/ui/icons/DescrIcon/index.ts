@@ -1,0 +1,1 @@
+export { DescrIcon } from './DescrIcon';

@@ -1,21 +1,34 @@
 import { cn } from "@/shared/lib/clsx";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import styles from './Dropdown.module.scss';
 import { Button, Plus } from "@/shared/ui";
+import { useClickOutside } from "@/storage/hooks";
 
 interface DropdownProps {
     title: string;
     children: ReactNode;
     ariaLabelledBy: string;
     description?: string;
+    descriptionIcon?: ReactNode;
+    dateOrMileageIcon?: ReactNode;
     onSave: () => boolean; 
-    onOpen?: () => void;    
+    onOpen?: () => void;   
 }
 
-export const Dropdown = ({title, children, ariaLabelledBy, onSave, onOpen, description}: DropdownProps) => {
+export const Dropdown = ({
+                            title, 
+                            children, 
+                            ariaLabelledBy,
+                            description, 
+                            descriptionIcon, 
+                            dateOrMileageIcon,
+                            onSave, 
+                            onOpen
+                        }: DropdownProps) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    useClickOutside(dropdownRef, () => setIsOpen(false));
 
     const toggle = () => {
         const willOpen = !isOpen;
@@ -32,19 +45,6 @@ export const Dropdown = ({title, children, ariaLabelledBy, onSave, onOpen, descr
         }
     }
 
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsOpen(false);
-            }
-        };
-        if (isOpen) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [isOpen]);
 
     return (
         <div className={cn(styles['dropdown_container'], isOpen && styles.active)} ref={dropdownRef}>
@@ -58,13 +58,31 @@ export const Dropdown = ({title, children, ariaLabelledBy, onSave, onOpen, descr
             <div className={cn(styles['dropdown_menu'], isOpen && styles.open)}>
                 <p className={styles['dropdown_menu-descr']}>{description}</p>
                 {children} 
-                <Button 
-                    ariaLabelledby={'сохранить'} 
-                    variant="save"
-                    child={'Сохранить'} 
-                    type={'button'}
-                    onClick={handleSave}
-                />
+                {(descriptionIcon || dateOrMileageIcon) 
+                    ?
+                    <div className={styles['dropdown_menu-wrapper']}>
+                        <div className={styles['dropdown_menu-icons']}>
+                            <div>{descriptionIcon}</div>
+                            <div>{dateOrMileageIcon}</div>
+                        </div>
+                        <Button 
+                        ariaLabelledby={'сохранить'} 
+                        variant="save"
+                        child={'Сохранить'} 
+                        type={'button'}
+                        onClick={handleSave}
+                    /> 
+                    </div>
+                    : 
+                    <Button 
+                        className={styles['dropdown_menu-btn']}
+                        ariaLabelledby={'сохранить'} 
+                        variant="save"
+                        child={'Сохранить'} 
+                        type={'button'}
+                        onClick={handleSave}
+                    /> 
+                }
              </div>
         </div>
     )

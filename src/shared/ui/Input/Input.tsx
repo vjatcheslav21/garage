@@ -1,4 +1,5 @@
 
+import { cn } from '@/shared/lib/clsx';
 import styles from './Input.module.scss';
 
 interface InputProps {
@@ -11,11 +12,11 @@ interface InputProps {
     id?: string;
 }
 
-export const Input = ({value, onChange, placeholder, type="text", id}: InputProps) => {
+export const Input = ({className, value, onChange, placeholder, type="text", id}: InputProps) => {
     return (
-        <div className={styles.input_wrapper}>
+        <div className={cn(styles.input_wrapper, className)}>
             <input 
-                className={styles.input} 
+                className={cn(styles.input)} 
                 type={type}
                 value={value}
                 id={id}

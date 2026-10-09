@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styles from '../Input/Input.module.scss';
-// import { Eye, EyeOff } from 'lucide-react'; // или любая другая иконка
+import { EyeIcon } from '@/shared/ui/icons/EyeIcon';
+import { EyeOffIcon } from '@/shared/ui/icons/EyeOffIcon';
+import { cn } from '@/shared/lib/clsx';
 interface PasswordInputProps {
     value?: string;
     onChange: (v: string) => void;
@@ -21,16 +23,15 @@ export const PasswordInput = ({ value, onChange, placeholder }: PasswordInputPro
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
         autoComplete="current-password"
-        className={styles['input']}
+        className={cn(styles.input, styles.input_password)}
       />
       <button
         type="button"
         onClick={handleToggle}
         aria-label={visible ? "Скрыть пароль" : "Показать пароль"}
-        className={styles['password_btn']}
+        className={styles.password_btn}
       >
-        {/* {visible ? <Eye size={20} /> : <EyeOff size={20} />} */}
-        {visible ? "скрыть пароль" : "показать пароль"}
+        {visible ? <EyeIcon /> : <EyeOffIcon/>}
       </button>
     </div>
   );

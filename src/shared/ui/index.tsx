@@ -5,3 +5,7 @@ export * from './Input';
 export * from './EditTaskForm';
 export * from './NotificationMenu';
 export * from './ToggleTheme';
+export * from './ToggleDimension';
+export * from './TaskModal';
+
+export * from './icons';

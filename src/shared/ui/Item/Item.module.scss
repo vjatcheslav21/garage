@@ -1,13 +1,13 @@
 @use '../../styles/variables' as *;
 
 .item {
-  display: flex;
-  place-items: center;
-  gap: 10px;
-  transition: background-color 0.2s ease;
-  padding: 10px 5px;
-  position: relative;
-  width: 300px;
+    display: flex;
+    place-items: center;
+    gap: 10px;
+    transition: background-color 0.2s ease;
+    padding: 10px 5px;
+    position: relative;
+    max-width: 300px;
   &:hover {
     background-color: var(--accent-bg);
     .status_waiting {
@@ -17,29 +17,11 @@
       opacity: 1;
       pointer-events: auto;
     }
-  }
-  &_content {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 6px;
-    cursor: pointer;
-  }
-    &_description {
-      margin: 0;
-      font-size: 13px;
-      color: var(--text-task-desc);
-      line-height: 1.4;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 250px;
-    }
-    
+  }    
     &_btn {
         width: 20px;
         height: 20px;
-        align-self:flex-start;
+        align-self: flex-start;
         padding: 0;
         font-size: 20px;
         line-height: 0;
@@ -103,30 +85,4 @@
   &:hover {
     background-color: #ffeaea; 
   }
-}
-
-.item_text {
-  flex: 1;
-  margin: 0;
-  transition: color 0.2s, text-decoration 0.2s;
-  overflow-wrap: break-word;
-}
-
-.status_badge {
-  font-size: 12px;
-  font-weight: 500;
-  transition: color .2s easy;
-}
-
-.status_waiting {
-  color: #2c3e50; 
-}
-
-.status_overdue {
-  color: #e74c3c; 
-  font-weight: bold;
-}
-
-.status_done {
-  color: #95a5a6; 
 }

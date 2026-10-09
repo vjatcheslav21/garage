@@ -14,7 +14,7 @@ export const Mileage = ({mileage, onUpdate}: MileageProps) => {
     const [error, setError] = useState<string | null>(null);
 
     const handleOpen = () => {
-        setInputValue(String(mileage));
+        setInputValue("");
         setError(null);
     }
 
@@ -50,7 +50,7 @@ export const Mileage = ({mileage, onUpdate}: MileageProps) => {
                         value={inputValue}
                         onChange={setInputValue}
                         type="number"
-                        placeholder="Укажите пробег"
+                        placeholder={`Текущий: ${mileage.toLocaleString('ru-RU')} км`}
                         />
                 {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
             </Dropdown>

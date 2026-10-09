@@ -8,6 +8,7 @@ import { Item } from '@/shared/ui/Item';
 export const List = ({
         items, 
         variant, 
+        onOpenModal,
         onToggleTask, 
         onDeleteTask, 
         onStartEdit, 
@@ -29,10 +30,11 @@ export const List = ({
                         key={task.id}
                         task={task}
                         variant={variant}
+                        onOpenModal={() => onOpenModal(task.id)}
                         onToggle={() => onToggleTask(task.id)}
                         onDelete={() => onDeleteTask(task.id)}
                         onStartEdit={() => onStartEdit(task.id)}
-                        onSave={(text, descr, mileage) => onSaveEdit(task.id, text, descr, mileage)}
+                        onSave={(text, descr, mileage, date) => onSaveEdit(task.id, text, descr, mileage, date)}
                         onCancel={onCancelEdit}
                         isEditing={editingTaskId === task.id}
                         currentMileage={currentMileage}                        

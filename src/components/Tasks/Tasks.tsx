@@ -1,8 +1,16 @@
 import { List } from "@/shared/ui/List";
 import styles from './Tasks.module.scss';
-import { AddTaskDropdown } from "@/components";
-import { useAddTaskMutation, useDeleteTaskMutation, useGetTasksQuery, useUpdateTaskMutation } from "@/storage/utils/taskApi";
+import { AddTaskDropdown, TaskContent } from "@/components";
+import {  useAddTaskMutation, 
+          useDeleteTaskMutation, 
+          useGetTasksQuery, 
+          useUpdateTaskMutation 
+        } from "@/storage/utils/taskApi";
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/storage/hooks/hooks";
+import { clearSelectedTask, setSelectedTask } from "@/storage/slices/uiSlice";
+import { TaskModal } from "@/shared/ui";
+import { format } from "date-fns";
 
 interface TasksProps {
   currentMileage: number;
@@ -10,24 +18,46 @@ interface TasksProps {
 
 export const Tasks = ({ currentMileage }: TasksProps) => {
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
+  const selectedTaskId = useAppSelector(state => state.ui.selectedTaskId);
   const { data, isLoading, isError } = useGetTasksQuery();
   const [addNewTask] = useAddTaskMutation();
   const [deleteTask] = useDeleteTaskMutation();
   const [updateTask] = useUpdateTaskMutation();
-  // const [addNewTask, isAddingTask] = useAddTaskMutation();
-  // const [deleteTask, isDeletedTask] = useDeleteTaskMutation();
-  // const [updateTask, isUpdatedTask] = useUpdateTaskMutation();
+  const activeTask = data?.find(task => task.id === selectedTaskId);
+  const dispatch = useAppDispatch();
 
-  const handleAddTask = (text: string, targetMileage: number) => {
-    addNewTask({text, targetMileage});
+  const handleCloseModal = () => {
+    dispatch(clearSelectedTask())
+  }
+
+  const handleAddTask = (text: string, targetMileage?: number, description?: string, targetDate?: string) => {
+    addNewTask({text, targetMileage, description, targetDate});
   }
 
   const handleStartEdit = (id: number) => {
     setEditingTaskId(id);
   }
 
-  const handleSaveEdit = (id: number, newText: string, newDesc: string, newMileage: number) => {
-    updateTask({id: id, text: newText, description: newDesc, targetMileage: newMileage});
+  const handleOpenModal = (id: number) => {
+    dispatch(setSelectedTask(id)); 
+  }
+
+  const handleSaveEdit = (
+                          id: number, 
+                          newText: string, 
+                          newDesc: string, 
+                          newMileage: number, 
+                          newDate: Date|null
+                        ) => {
+    const formattedDate = newDate ? format(newDate, 'yyyy-MM-dd') : null;
+    updateTask(
+                { 
+                  id: id, 
+                  text: newText, 
+                  description: newDesc, 
+                  targetMileage: newMileage, 
+                  targetDate: formattedDate
+                });
     setEditingTaskId(null);
   };
 
@@ -80,6 +110,7 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
                 <List 
                   items={inWorkTasks}
                   variant="inWork"
+                  onOpenModal={handleOpenModal}
                   onToggleTask={handleToggleTask}
                   onDeleteTask={handleDeleteTask}
                   onStartEdit={handleStartEdit}
@@ -94,6 +125,7 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
               <List 
                   items={isDoneTasks}
                   variant="isDone"
+                  onOpenModal={handleOpenModal}
                   onToggleTask={handleToggleTask}
                   onDeleteTask={handleDeleteTask}
                   onStartEdit={handleStartEdit}
@@ -105,6 +137,16 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
             </div>
         </div> 
           }
+          {activeTask && (
+            <TaskModal onClose={handleCloseModal}>
+              <TaskContent 
+                task={activeTask} 
+                currentMileage={currentMileage} 
+                onOpenModal={() => {}
+              } 
+              />
+            </TaskModal>
+          )}
     </div>
   );
 }

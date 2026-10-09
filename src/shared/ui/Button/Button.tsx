@@ -1,10 +1,11 @@
 
 import { cn } from '@/shared/lib/clsx';
 import styles from './Button.module.scss';
+import type { ReactNode } from 'react';
 
 type VariantButton = 'save' | 'cancel' | 'checkbox' | 'default';
 interface ButtonProps {
-    child: string;
+    child: ReactNode;
     className?: string;
     ariaLabelledby: string;
     type: "submit" | "button";
