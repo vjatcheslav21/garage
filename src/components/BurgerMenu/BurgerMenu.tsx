@@ -1,10 +1,13 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import styles from './BurgerMenu.module.scss';
 import { cn } from "@/shared/lib/clsx";
 import { Link} from "react-router-dom";
+import { useClickEscape, useClickOutside } from "@/storage/hooks";
 
 export const BurgerMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+    useClickOutside(menuRef, () => setIsOpen(false));
 
     const toggleMenu = () => {
         setIsOpen(!isOpen)
@@ -13,10 +16,10 @@ export const BurgerMenu = () => {
     const closeMenu = () => {
         setIsOpen(false)
     }
+    useClickEscape(closeMenu);
 
      return (
-        <div className={styles['burger_container']}>
-
+        <div className={styles['burger_container']} ref={menuRef}>
             <button 
                 className={cn(
                     styles.burger_btn, 
@@ -29,7 +32,6 @@ export const BurgerMenu = () => {
                 <span></span>
                 <span></span>
             </button>
-
             <nav 
                 className={cn(
                     styles.menu_nav, 

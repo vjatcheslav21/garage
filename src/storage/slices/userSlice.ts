@@ -1,4 +1,4 @@
-import type { RequestStatus, Theme, TUser } from "@/shared/types/types";
+import type { Dimension, RequestStatus, Theme, TUser } from "@/shared/types/types";
 import { USER_SLICE_NAME } from "@/storage/slices/sliceNames";
 import { fetchUser, registerUser } from "@/storage/thunks/thunks";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
@@ -18,6 +18,7 @@ const savedUser = userFromStorage ? JSON.parse(userFromStorage) : null;
 interface UserState {
     user: TUser | null;
     isAuth: boolean;
+    selectDimension: Dimension;
     requestStatus: RequestStatus;
     errorMessage: string | null;
     themeColor: Theme;
@@ -26,6 +27,7 @@ interface UserState {
 const initialState: UserState = {
     user: savedUser,
     isAuth: !!savedUser,
+    selectDimension: 'mileage',
     requestStatus: 'Idle',
     errorMessage: null,
     themeColor: getTheme()
@@ -40,11 +42,14 @@ const userSlice = createSlice({
             state.user = actions.payload
         },
         userLogout:(state) => {
-            state.isAuth = false
+            state.isAuth = false;
             state.user = null;
             state.requestStatus = 'Idle';
             state.errorMessage = null;
             localStorage.removeItem('user');
+        },
+        setDimension: (state, action: PayloadAction<Dimension>) => {
+            state.selectDimension = action.payload
         },
         toggleTheme:(state, action: PayloadAction<Theme>) => {
             state.themeColor = action.payload
@@ -84,5 +89,5 @@ const userSlice = createSlice({
     }
 })
 
-export const {userLogin, userLogout, toggleTheme} = userSlice.actions;
+export const {userLogin, userLogout, setDimension, toggleTheme} = userSlice.actions;
 export default userSlice.reducer;

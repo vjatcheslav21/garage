@@ -9,3 +9,4 @@ export * from './Login';
 export * from './SignUp';
 export * from './ProtectedRoute';
 export * from './Slider';
+export * from './TaskContent';

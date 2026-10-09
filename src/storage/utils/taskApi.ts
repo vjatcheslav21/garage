@@ -9,13 +9,15 @@ let mockDatabase: Task[] = [
         isDone: false, 
         targetMileage: 95000, 
         actualMileage: undefined, 
+        targetDate: null,
         description: 'Синтетика 5W-30' },
     { 
         id: 2, 
         text: 'Проверить тормоза', 
         isDone: true, 
-        targetMileage: 80000, 
+        targetMileage: 30000, 
         actualMileage: undefined, 
+        targetDate: null,
         description: 'Передние колодки' }
 ]
 
@@ -28,7 +30,7 @@ export const fetchTasksApi = createApi({
     // }),
     getTasks: build.query<Task[], void>({
         queryFn: async () => {
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            await new Promise(resolve => setTimeout(resolve, 1000));
             return { data: [...mockDatabase] };
         },
         providesTags: ['Tasks'],
@@ -44,6 +46,7 @@ export const fetchTasksApi = createApi({
                 isDone: false,
                 targetMileage: partialTask.targetMileage || 0,
                 actualMileage: undefined,
+                targetDate: partialTask.targetDate || null,
                 description: partialTask.description || ''
             };
             mockDatabase = [...mockDatabase, createdTask];

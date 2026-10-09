@@ -1,15 +1,17 @@
 @use '../../styles/variables' as *;
 
 .input_wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    position: relative;
+    margin-top: 6px;
 }
 
 .input {
-    height: 35px;
     border: 1px solid $input-border;
-    padding: 5px 10px;
+    border-radius: 4px;
+    padding: 10px;
+    max-height: 35px;
+    min-width: 100%;
+    
 }
 
 .input_btn {
@@ -17,10 +19,12 @@
 }
 
 .password_btn {
-    position: 'absolute';
-    right: 8;
-    background: 'none';
-    border: 'none';
-    cursor: 'pointer';
-    color: '#666';
+    position: absolute;
+    right: 10px; 
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
 }

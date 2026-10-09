@@ -1,0 +1,10 @@
+@use '../../styles/mixins' as *;
+
+.dimension {
+    @include text-h4;
+    cursor: pointer;
+}
+
+.dimension:hover {
+        color: var(--text-theme-hover)
+}

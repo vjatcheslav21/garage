@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/storage/hooks/hooks";
 import styles from './Profile.module.scss';
-import { Button, Input, ToggleTheme } from "@/shared/ui";
+import { Button, Input, ToggleDimension, ToggleTheme } from "@/shared/ui";
 import { useState } from "react";
 import type { TUser } from "@/shared/types/types";
 import { userLogin, userLogout } from "@/storage/slices/userSlice";
@@ -35,6 +35,7 @@ export const Profile = () => {
                 <div className={styles['profile__info_car']}>
                     <span className={styles['title']}>Ваш автомобиль: {car?.name}</span>
                 </div>
+                <ToggleDimension/>
                 <div className={styles['profile__info_user']}>
                     <Dropdown 
                             title={`Ваш email: ${user?.email}`}

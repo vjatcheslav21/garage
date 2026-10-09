@@ -7,8 +7,8 @@ export const ToggleTheme = () => {
     const dispatch = useAppDispatch();
 
     const handleChange = () => {
-        const next = theme === 'dark' ? 'light' : 'dark'
-        dispatch(toggleTheme(next))
+        const next = theme === 'dark' ? 'light' : 'dark';
+        dispatch(toggleTheme(next));
     }
 
     return (
