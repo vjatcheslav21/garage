@@ -1,8 +1,10 @@
-import type { IconProp } from "@/shared/types/types"
+import type { IconProp } from "@/shared/types/types";
+import styles from '../icons.module.scss';
 
 export const EyeOffIcon = ({ width = 20, height = 15, color = 'currentColor' }: IconProp)  => {
     return (
         <svg 
+            className={styles.icon}
             width={width} 
             height={height} 
             viewBox="0 0 50 50" 

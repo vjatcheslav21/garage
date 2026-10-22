@@ -1,8 +1,10 @@
-import type { IconProp } from "@/shared/types/types"
+import type { IconProp } from "@/shared/types/types";
+import styles from '../icons.module.scss';
 
 export const CheckIcon = ({ width = 20, height = 20, color = 'currentColor' }: IconProp)  => {
     return (
         <svg 
+            className={styles.icon}
             width={width} 
             height={height} 
             viewBox="0 0 50 50" 

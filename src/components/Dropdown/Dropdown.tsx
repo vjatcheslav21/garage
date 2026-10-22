@@ -11,8 +11,11 @@ interface DropdownProps {
     description?: string;
     descriptionIcon?: ReactNode;
     dateOrMileageIcon?: ReactNode;
+    controlledIsOpen?: boolean;
     onSave: () => boolean; 
     onOpen?: () => void;   
+    onCloseDropdown?: () => void;
+    hideSaveButton?: boolean;
 }
 
 export const Dropdown = ({
@@ -22,17 +25,37 @@ export const Dropdown = ({
                             description, 
                             descriptionIcon, 
                             dateOrMileageIcon,
+                            controlledIsOpen,
                             onSave, 
-                            onOpen
+                            onOpen,
+                            onCloseDropdown,
+                            hideSaveButton
                         }: DropdownProps) => {
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [internalIsOpen, setInternalIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-    useClickOutside(dropdownRef, () => setIsOpen(false));
+    const isControlled = controlledIsOpen !== undefined;
+    const isOpen = isControlled ? controlledIsOpen : internalIsOpen;
+    
+    useClickOutside(dropdownRef, () => {
+        if (isControlled) {
+            onCloseDropdown?.();
+        } else {
+            setInternalIsOpen(false);
+        }
+    });
 
     const toggle = () => {
-        const willOpen = !isOpen;
-        setIsOpen(willOpen)
+        if (isControlled) {
+            if (isOpen) {
+                onCloseDropdown?.();
+            } else {
+                onOpen?.();
+            }
+            return; 
+        }
+        const willOpen = !internalIsOpen;
+        setInternalIsOpen(willOpen);
         if (willOpen && onOpen) {
             onOpen();
         }
@@ -41,10 +64,41 @@ export const Dropdown = ({
     const handleSave = () => {
         const isSuccessful = onSave();
         if (isSuccessful) {
-            setIsOpen(false);
+            if (isControlled) {
+                onCloseDropdown?.();
+            } else {
+                setInternalIsOpen(false);
+            }
         }
     }
 
+    const renderSaveButton = () => {
+        if (hideSaveButton) return null;
+        return (descriptionIcon || dateOrMileageIcon) 
+            ?
+            <div className={styles['dropdown_menu-wrapper']}>
+                <div className={styles['dropdown_menu-icons']}>
+                    <div>{descriptionIcon}</div>
+                    <div>{dateOrMileageIcon}</div>
+                </div>
+                <Button 
+                    ariaLabelledby={'сохранить'} 
+                    variant="save"
+                    child={'Сохранить'} 
+                    type={'button'}
+                    onClick={handleSave}
+                /> 
+            </div>
+            : 
+            <Button 
+                className={styles['dropdown_menu-btn']}
+                ariaLabelledby={'сохранить'} 
+                variant="save"
+                child={'Сохранить'} 
+                type={'button'}
+                onClick={handleSave}
+            /> 
+    }
 
     return (
         <div className={cn(styles['dropdown_container'], isOpen && styles.active)} ref={dropdownRef}>
@@ -58,31 +112,7 @@ export const Dropdown = ({
             <div className={cn(styles['dropdown_menu'], isOpen && styles.open)}>
                 <p className={styles['dropdown_menu-descr']}>{description}</p>
                 {children} 
-                {(descriptionIcon || dateOrMileageIcon) 
-                    ?
-                    <div className={styles['dropdown_menu-wrapper']}>
-                        <div className={styles['dropdown_menu-icons']}>
-                            <div>{descriptionIcon}</div>
-                            <div>{dateOrMileageIcon}</div>
-                        </div>
-                        <Button 
-                        ariaLabelledby={'сохранить'} 
-                        variant="save"
-                        child={'Сохранить'} 
-                        type={'button'}
-                        onClick={handleSave}
-                    /> 
-                    </div>
-                    : 
-                    <Button 
-                        className={styles['dropdown_menu-btn']}
-                        ariaLabelledby={'сохранить'} 
-                        variant="save"
-                        child={'Сохранить'} 
-                        type={'button'}
-                        onClick={handleSave}
-                    /> 
-                }
+                {renderSaveButton()}
              </div>
         </div>
     )

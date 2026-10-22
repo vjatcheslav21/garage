@@ -1,6 +1,6 @@
 import { List } from "@/shared/ui/List";
 import styles from './Tasks.module.scss';
-import { AddTaskDropdown, TaskContent } from "@/components";
+import { AddTaskDropdown, TaskModalContent } from "@/components";
 import {  useAddTaskMutation, 
           useDeleteTaskMutation, 
           useGetTasksQuery, 
@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/storage/hooks/hooks";
 import { clearSelectedTask, setSelectedTask } from "@/storage/slices/uiSlice";
 import { TaskModal } from "@/shared/ui";
 import { format } from "date-fns";
+import type { Task } from "@/shared/types/types";
 
 interface TasksProps {
   currentMileage: number;
@@ -24,14 +25,20 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
   const [deleteTask] = useDeleteTaskMutation();
   const [updateTask] = useUpdateTaskMutation();
   const activeTask = data?.find(task => task.id === selectedTaskId);
+  const currentCarId = useAppSelector(state => state.cars.carSelected?.id);
   const dispatch = useAppDispatch();
 
   const handleCloseModal = () => {
     dispatch(clearSelectedTask())
   }
 
-  const handleAddTask = (text: string, targetMileage?: number, description?: string, targetDate?: string) => {
-    addNewTask({text, targetMileage, description, targetDate});
+  const handleAddTask = ( text: string, 
+                          targetMileage?: number, 
+                          description?: string, 
+                          targetDate?: string, 
+                          carId?: string
+                        ) => {
+    addNewTask({text, targetMileage, description, targetDate, carId});
   }
 
   const handleStartEdit = (id: number) => {
@@ -58,8 +65,15 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
                   targetMileage: newMileage, 
                   targetDate: formattedDate
                 });
+    dispatch(clearSelectedTask());
     setEditingTaskId(null);
   };
+
+  //Сохранение значения инпутов при потере фокуса
+  const handleUpdateField = (data: Partial<Task>) => {
+    if (!activeTask) return;
+    updateTask({id: activeTask.id, ...data})
+  }
 
   const handleCancelEdit = () => {
     setEditingTaskId(null);
@@ -81,7 +95,7 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
   const handleDeleteTask = (id: number) => { deleteTask(id) }
 
   const inWorkTasks = (data || [])
-    .filter((t) => !t.isDone)
+    .filter((t) => !t.isDone && t.carId === currentCarId)
     .sort((a, b) => {
       const remainingA = a.targetMileage - currentMileage;
       const remainingB = b.targetMileage - currentMileage;
@@ -89,7 +103,7 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
     });
 
   const isDoneTasks = (data || [])
-    .filter((t) => t.isDone)
+    .filter((t) => t.isDone && t.carId === currentCarId)
     .sort((a, b) => (b.actualMileage || 0) - (a.actualMileage || 0));
 
   return (
@@ -139,12 +153,11 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
           }
           {activeTask && (
             <TaskModal onClose={handleCloseModal}>
-              <TaskContent 
+              <TaskModalContent 
                 task={activeTask} 
-                currentMileage={currentMileage} 
-                onOpenModal={() => {}
-              } 
-              />
+                onOpenModal={() => { } } 
+                onUpdateField={handleUpdateField}
+                />
             </TaskModal>
           )}
     </div>

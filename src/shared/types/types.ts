@@ -8,6 +8,7 @@ export interface Task {
     actualMileage?: number;
     targetDate?: string | null;
     description?: string;
+    carId: string;
 }
 
 export interface ListProps {

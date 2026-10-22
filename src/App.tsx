@@ -2,7 +2,7 @@ import { Footer, Header } from '@/widgets';
 import './App.css';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from '@/components';
-import { AuthPage, IntroPage, MainPage } from '@/pages';
+import { AuthPage, CarPage, IntroPage, MainPage } from '@/pages';
 import { useAppSelector } from '@/storage/hooks/hooks';
 import { Profile } from '@/pages/ProfilePage';
 import { useEffect } from 'react';
@@ -41,6 +41,14 @@ function App() {
             element={
               <ProtectedRoute 
                 children={cars.length === 0 ? <IntroPage/> : <MainPage />}
+                // children={<IntroPage/>}
+              />}
+          />
+          <Route 
+            path='/car' 
+            element={
+              <ProtectedRoute 
+                children={<CarPage/>}
               />}
           />
           <Route 

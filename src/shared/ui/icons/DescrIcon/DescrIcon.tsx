@@ -1,8 +1,10 @@
-import type { IconProp } from "@/shared/types/types"
+import type { IconProp } from "@/shared/types/types";
+import styles from '../icons.module.scss';
 
-export const DescrIcon = ({ width = 25, height = 22, color = 'currentColor', onClick}: IconProp)  => {
+export const DescrIcon = ({ width = 20, height = 22, color = 'currentColor', onClick}: IconProp)  => {
     return (
         <svg 
+            className={styles.icon}
             width={width} 
             height={height} 
             viewBox="0 0 30 30" 

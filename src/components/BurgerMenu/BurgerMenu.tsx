@@ -44,6 +44,9 @@ export const BurgerMenu = () => {
                     <li className={styles.nav_item} onClick={closeMenu}>
                         <Link to="/profile" className={styles['menu_list-link']}>Профиль</Link>
                     </li>
+                    <li className={styles.nav_item} onClick={closeMenu}>
+                        <Link to="/car" className={styles['menu_list-link']}>Авто</Link>
+                    </li>
                 </ul>
             </nav>
         </div>

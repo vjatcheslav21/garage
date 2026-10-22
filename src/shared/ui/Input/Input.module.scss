@@ -1,8 +1,8 @@
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .input_wrapper {
     position: relative;
-    margin-top: 6px;
 }
 
 .input {
@@ -10,8 +10,13 @@
     border-radius: 4px;
     padding: 10px;
     max-height: 35px;
-    min-width: 100%;
-    
+    width: 100%;
+    background: var(--bg-input);
+    box-sizing: border-box;
+    @include text-input;
+    ::placeholder {
+        @include text-input;
+    }
 }
 
 .input_btn {
@@ -27,4 +32,51 @@
     border: none;
     cursor: pointer;
     color: inherit;
+}
+
+.input_radio_wrapper {
+    display: flex;
+    gap: 10px;
+    color: var(--text-desc-dropdown);
+}
+
+.radio_text  {
+    margin-left: 5px;
+}
+
+.input_date {
+//   border: 1px solid $input-border;
+//   border-radius: 4px;
+//   max-height: 35px;
+//   padding: 10px;
+//   box-sizing: border-box;
+  @include text-input;
+    ::placeholder {
+        @include text-input;
+    }
+}
+
+.date_mt6px {
+  margin-top: 6px;
+}
+
+.inline {
+    margin-left: 10px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: inherit;
+    font: inherit;
+    padding: 0;
+    cursor: pointer;
+}
+
+.inline:focus {
+    border-bottom: 1px solid var(--border-modal);
+    border-radius: 0px;
+}
+
+.disabled {
+    opacity: 0.8;
+    background-color: transparent;
 }

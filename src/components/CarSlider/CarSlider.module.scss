@@ -1,0 +1,112 @@
+@use '../../shared/styles/mixins' as *;
+
+.car_title {
+    @include text-h2;
+}
+.wrapper {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+:global(.swiper) {
+    width: calc(100% - 80px);
+    margin: 0 auto;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+:global(.swiper-slide) {
+    width: 250px !important;
+    max-width: 80vw !important;
+    flex-shrink: 0;
+    place-items: center;
+}
+
+.slide {
+    width: 250px;
+    max-width: 80vw;
+    flex-shrink: 0;
+    padding: 20px;
+    border: 2px solid var(--border-slide);
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    &_active {
+        background-color: var(--border-slide);
+        color: white;
+    }
+}
+
+:global(.swiper-button-next),
+:global(.swiper-button-prev) {
+  background-color: var(--bg-navigation-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+:global(.swiper-button-disabled) {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+:global(.swiper-button-prev) {
+  left: 0;
+}
+:global(.swiper-button-next) {
+  right: 0;
+}
+
+
+// @media (max-width: 767px) {
+//     :global(.swiper-button-next),
+//     :global(.swiper-button-prev) {
+//         display: none !important;
+//     }
+//     .slide {
+//         width: 150px;
+//     }
+    
+//     :global(.swiper) {
+//         width: 100%;
+//     }
+// }
+
+@media (max-width: 767px) {
+    :global(.swiper-button-next),
+    :global(.swiper-button-prev) {
+        display: none !important;
+    }
+    
+    :global(.swiper-slide) {
+        width: 150px !important;
+    }
+    
+    .slide {
+        width: 150px;
+        padding: 5px;  
+    }
+    
+    :global(.swiper) {
+        width: 100%;
+    }
+}
+
+.add_car_wrapper {
+    display: flex;
+    justify-content: center;
+}

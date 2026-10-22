@@ -1,10 +1,11 @@
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .editing_mode {
   background-color: var(--bg-dropdown); 
   box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
-  padding: 10px;
+  padding: 15px;
   margin-bottom: 10px;
   min-width: min-content;
   min-height: min-content;
@@ -12,12 +13,16 @@
   inset: 0;
   z-index: 1;
 }
+.edit_form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 
 .edit_textarea {
   padding: 8px;
   border: 1px solid $input-border;
   border-radius: 4px;
-  margin-top: 6px;
   width: 100%;
   resize: vertical; 
   font-family: inherit;
@@ -31,16 +36,9 @@
   justify-content: flex-end;
 }
 
-.input_date {
-  border: 1px solid $input-border;
-  border-radius: 4px;
-  max-height: 35px;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.date_mt6px {
-  margin-top: 6px;
+.input_disabled {
+  opacity: 0.8;
+  background-color: transparent;
 }
 
 

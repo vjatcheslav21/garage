@@ -1,15 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from './AddTaskDropdown.module.scss';
 import { CalendarIcon, DescrIcon, Input, MileageIcon} from "@/shared/ui";
 import { Dropdown } from "@/components/Dropdown";
-import { cn } from "@/shared/lib/clsx";
-import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from "date-fns";
-import { useAppSelector } from "@/storage/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/storage/hooks/hooks";
+import { clearPrefillTaskData } from "@/storage/slices/uiSlice";
+import { InputDate } from "@/shared/ui/Input/InputDate";
+import { cn, parseMileage } from "@/shared/lib";
 
 interface AddTaskDropdownProps {
-  onAddTask: (text: string, targetMileage: number, description: string, targetDate: string) => void;
+  onAddTask: (text: string, 
+              targetMileage: number, 
+              description: string, 
+              targetDate: string, 
+              carId: string) => void;
 }
 
 export const AddTaskDropdown = ({ onAddTask }: AddTaskDropdownProps) => {
@@ -20,9 +25,22 @@ export const AddTaskDropdown = ({ onAddTask }: AddTaskDropdownProps) => {
   const [isDescr, setIsDescr] = useState(false);
   const [isDate, setIsDate] = useState(false);
   const [isMileage, setIsMileage] = useState(false);
+  const [forceOpen, setForceOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const carSelectedId = useAppSelector(state => state.cars.carSelected?.id);
   const dimension = useAppSelector(state => state.user.selectDimension);
+  const prefillTaskData = useAppSelector(state => state.ui.prefillTaskData);
   //В будущем валидация на форму
   const [error, setError] = useState<string|null>(null);
+
+  useEffect(() => {
+      if (prefillTaskData) {
+        setTaskText(prefillTaskData.text);
+        setTaskDescr(prefillTaskData.description);
+        dispatch(clearPrefillTaskData());
+        setForceOpen(true);
+      }
+  },[prefillTaskData])
 
   const clearInput = () => {
     setTaskText("");
@@ -36,13 +54,13 @@ export const AddTaskDropdown = ({ onAddTask }: AddTaskDropdownProps) => {
 
   const handleSave = (): boolean => {
     const text = taskText.trim();
-    const mileage = parseInt(taskMileage, 10);
+    const mileage = parseMileage(taskMileage);
     const description = taskDescr.trim();
     const formattedDate = startTaskDate ? format(startTaskDate, 'yyyy-MM-dd') : ''; 
 
     if (dimension === 'mileage') {
       if (text && !isNaN(mileage) && mileage > 0) {
-        onAddTask(text, mileage, description, formattedDate);
+        onAddTask(text, mileage, description, formattedDate, carSelectedId || '');
         clearInput();
         return true; 
       }
@@ -54,7 +72,7 @@ export const AddTaskDropdown = ({ onAddTask }: AddTaskDropdownProps) => {
       if (text && formattedDate) {
         // const onSaveMileage = isNaN(mileage) && mileage > 0 ? mileage : 0;
         // onAddTask(text, onSaveMileage, description, formattedDate);
-        onAddTask(text, mileage, description, formattedDate);
+        onAddTask(text, mileage, description, formattedDate, carSelectedId || '');
         clearInput();
         return true;
       }
@@ -81,32 +99,34 @@ export const AddTaskDropdown = ({ onAddTask }: AddTaskDropdownProps) => {
                           <CalendarIcon onClick={() => addCollapsibleInput(setIsDate)}/>
                         }
         onSave={handleSave}
+        controlledIsOpen={forceOpen}
+        onOpen={() => setForceOpen(true)}
+        onCloseDropdown={() => setForceOpen(false)}
         >
           {dimension === 'mileage' ? (
            <>
            <Input
               value={taskText}
               onChange={setTaskText}
-              placeholder="Что сделать? (замена масла)"/>
+              placeholder="Что сделать?"/>
               {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
             <Input
               value={taskMileage}
               onChange={setTaskMileage}
               type="number"
-              placeholder="На каком пробеге?(160000)"/>
+              placeholder="На каком пробеге?"/>
             <Input 
               className={cn(styles.collapsible, styles.input_descr, isDescr && styles.open)}
               value={taskDescr}
               onChange={setTaskDescr}
-              placeholder="Описание (необязательно)"/>
+              placeholder="Описание(необязательно)"/>
             <div className={cn(styles.collapsible, isDate && styles.open)}>
-              <DatePicker
-                className={styles.input_date}
-                placeholderText="Дата (необязательно)"
-                selected={startTaskDate}
-                onChange={(date: Date | null) => setStartTaskDate(date as Date)}
-                dateFormat="dd.MM.yyyy"
-              />
+              <InputDate 
+                placeholder="Дата(необязательно)"
+                selectedDate={startTaskDate}
+                onChangeDate={setStartTaskDate} 
+                variant={"classic"}              
+                />
               {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
             </div>
             </>
@@ -115,26 +135,25 @@ export const AddTaskDropdown = ({ onAddTask }: AddTaskDropdownProps) => {
             <Input
               value={taskText}
               onChange={setTaskText}
-              placeholder="Что сделать? (замена масла)"/>
+              placeholder="Что сделать?"/>
               {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
-            <DatePicker
-              className={cn(styles.input_date, styles.date_mt6px)}
-              placeholderText="Запланированная дата"
-              selected={startTaskDate}
-              onChange={(date: Date | null) => setStartTaskDate(date as Date)}
-              dateFormat="dd.MM.yyyy"
-            />
+            <InputDate 
+                placeholder="Дата"
+                selectedDate={startTaskDate}
+                onChangeDate={setStartTaskDate} 
+                variant={"classic"}              
+                />
             <Input
               className={cn(styles.collapsible, isMileage && styles.open)}
               value={taskMileage}
               onChange={setTaskMileage}
               type="number"
-              placeholder="На каком пробеге?(160000)"/>
+              placeholder="На каком пробеге?"/>
             <Input 
               className={cn(styles.collapsible, styles.input_descr, isDescr && styles.open)}
               value={taskDescr}
               onChange={setTaskDescr}
-              placeholder="Описание (необязательно)"/>
+              placeholder="Описание(необязательно)"/>
              </>
             )}
       </Dropdown>

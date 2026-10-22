@@ -10,8 +10,8 @@
     max-width: 300px;
   &:hover {
     background-color: var(--accent-bg);
-    .status_waiting {
-      color: var(--text);
+    span {
+      color: var(--text-task-waiting-hover);
     }
     .dots_btn {
       opacity: 1;

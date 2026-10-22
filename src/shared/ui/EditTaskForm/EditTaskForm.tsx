@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import styles from './EditTaskForm.module.scss';
 import { cn } from "@/shared/lib/clsx";
 import { Button, Input } from "@/shared/ui";
-import { useClickEscape, useClickOutside } from "@/storage/hooks";
-import DatePicker from "react-datepicker";
+import { useAppDispatch, useClickEscape, useClickOutside } from "@/storage/hooks";
+import { setPrefillTaskData } from "@/storage/slices/uiSlice";
+import { InputDate } from "@/shared/ui/Input/InputDate";
 
 interface EditTaskFormProps {
+    isDone?: boolean;
     initialText: string;
     initialDescription?: string;
     initialMileage: number;
@@ -14,11 +16,21 @@ interface EditTaskFormProps {
     onCancel: () => void; 
 }
 
-export const EditTaskForm = ({ initialText, initialDescription, initialMileage, initialDate, onSave, onCancel }: EditTaskFormProps) => {
+export const EditTaskForm = ({ 
+                              isDone, 
+                              initialText, 
+                              initialDescription, 
+                              initialMileage, 
+                              initialDate, 
+                              onSave, 
+                              onCancel 
+                            }: EditTaskFormProps) => {
+
   const [editText, setEditText] = useState(initialText);
   const [editDesc, setEditDesc] = useState(initialDescription || "");
   const [editMileage, setEditMileage] = useState(initialMileage);
   const [editDate, setEditDate] = useState(initialDate);
+  const dispatch = useAppDispatch();
   
   const formRef = useRef<HTMLDivElement>(null);
 
@@ -32,50 +44,79 @@ export const EditTaskForm = ({ initialText, initialDescription, initialMileage, 
   useClickOutside(formRef, onCancel);
   useClickEscape(onCancel);
 
+  const handleRepeat = () => {
+    dispatch(setPrefillTaskData({ text: editText, description: editDesc }))
+    onCancel();
+  }
+
     return (
       <div className={cn(styles.item_wrapper, styles.editing_mode)} ref={formRef}>
         <div className={styles.edit_form}>
           <Input
-             className={styles.edit_input}
-             value={editText}
-             onChange={setEditText}
-             placeholder="Название задачи"
-             autoFocus   
+            className={cn(isDone && styles.input_disabled)}
+            value={editText}
+            onChange={setEditText}
+            placeholder="Название задачи"
+            autoFocus 
+            variant={isDone ? "disabled" : "classic"}   
             />
             <Input
-             className={styles.edit_input}
-             type="number"
-             value={String(editMileage)}
-             onChange={(valueStr) => setEditMileage(parseInt(valueStr, 10) || 0)}
-             placeholder="На каком пробеге?"   
+            className={cn(isDone && styles.input_disabled)}
+            type="number"
+            value={String(editMileage)}
+            onChange={(valueStr) => setEditMileage(parseInt(valueStr, 10) || 0)}
+            placeholder="На каком пробеге?"   
+            variant={isDone ? "disabled" : "classic"}   
           />
-          <DatePicker
-              className={cn(styles.input_date, styles.date_mt6px)}
-              placeholderText="Запланированная дата"
-              selected={editDate}
-              onChange={(date: Date | null) => setEditDate(date as Date)}
-              dateFormat="dd.MM.yyyy"
+          <InputDate 
+            className={cn(isDone && styles.input_disabled)}
+            placeholder={isDone ? "Дата не выбрана" : "Запланированная дата"}
+            selectedDate={editDate}
+            onChangeDate={setEditDate}
+            variant={isDone ? "disabled" : "classic"}            
             />
           <textarea 
-            className={styles.edit_textarea}
-            value={editDesc}
-            onChange={(e) => setEditDesc(e.target.value)}
-            placeholder="Описание (необязательно)"
-            rows={2}
+              className={cn(styles.edit_textarea, isDone && styles.input_disabled)}
+              value={editDesc}
+              onChange={(e) => setEditDesc(e.target.value)}
+              placeholder="Описание (необязательно)"
+              rows={2}
+              maxLength={300}
+              disabled={isDone} 
           />
           <div className={styles.edit_btns}>
-            <Button 
-              variant="save"
-              onClick={() => {onSave(editText, editDesc, editMileage, editDate)}}
-              ariaLabelledby="сохранить" 
-              child={"Сохранить"} 
-              type={"button"}/>
-            <Button 
-              variant="cancel"
-              onClick={onCancel}
-              ariaLabelledby="кнопка отмены" 
-              child={"Отмена"} 
-              type={"button"}/>
+            {isDone ? 
+            <>
+              <Button 
+                variant="save"
+                onClick={() => {handleRepeat()}}
+                ariaLabelledby="повторить задачу" 
+                child={"Повторить"}
+                type={"button"}/>
+              
+              <Button 
+                variant="cancel"
+                onClick={onCancel}
+                ariaLabelledby="кнопка отмены" 
+                child={"Отмена"} 
+                type={"button"}/>
+              </> 
+              :
+              <>
+              <Button 
+                variant="save"
+                onClick={() => {onSave(editText, editDesc, editMileage, editDate)}}
+                ariaLabelledby="сохранить" 
+                child={"Сохранить"} 
+                type={"button"}/>
+              <Button 
+                variant="cancel"
+                onClick={onCancel}
+                ariaLabelledby="кнопка отмены" 
+                child={"Отмена"} 
+                type={"button"}/>
+              </> 
+              }
           </div>
         </div>
       </div>

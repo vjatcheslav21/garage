@@ -1,8 +1,10 @@
-import type { IconProp } from "@/shared/types/types"
+import type { IconProp } from "@/shared/types/types";
+import styles from '../icons.module.scss';
 
-export const MileageIcon = ({ width = 25, height = 22, color = 'currentColor', onClick}: IconProp) => {
+export const MileageIcon = ({ width = 20, height = 22, color = 'currentColor', onClick}: IconProp) => {
     return(
         <svg
+            className={styles.icon}
             xmlns="http://www.w3.org/2000/svg"
             width={width}
             height={height}

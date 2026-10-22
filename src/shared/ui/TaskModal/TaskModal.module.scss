@@ -1,21 +1,30 @@
 @use '../../styles/variables' as *;
-.modal {
-    position: absolute;
-    background-color: var(--bg-dropdown);
-    box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
-    padding: 20px;
-    margin-bottom: 10px;
-    min-width: min-content;
-    min-height: min-content;
-    position: absolute;
-    inset: 0;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+// .modal {
+    // position: fixed;
+    // background-color: var(--bg-modal);
+    // box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.3);
+    // border-radius: 5px;
+    // padding: 20px;
+    // margin-bottom: 10px;
+    // min-width: min-content;
+    // z-index: 1000;
+    // inset: 0;
+    // box-sizing: border-box;
+    // overflow-y: auto;
+    // display: flex;
+    // flex-direction: column;
+    // gap: 10px;
+    .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background-color: var(--bg-modal);
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto;
     &__close_btn {
         cursor: pointer;
-        align-self: flex-end;
     }
-}
+    }

@@ -10,3 +10,6 @@ export * from './SignUp';
 export * from './ProtectedRoute';
 export * from './Slider';
 export * from './TaskContent';
+export * from './TaskModalContent';
+export * from './CarSlider';
+export * from './AddCar';

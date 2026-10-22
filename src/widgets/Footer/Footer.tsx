@@ -4,6 +4,7 @@ import { GitHubIcon, VKIcon } from '@/shared/ui';
 
 export const Footer = () => {
     return(
+        <>
         <div className={styles.footer}>
             <ul className={styles.footer__list}>
                 <li>
@@ -14,5 +15,6 @@ export const Footer = () => {
                 </li>
             </ul>
         </div>
+        </>
     )
 }
