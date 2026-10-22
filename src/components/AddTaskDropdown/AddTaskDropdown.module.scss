@@ -1,4 +1,5 @@
  @use '../../shared/styles/variables' as *;
+ @use '../../shared/styles/mixins' as *;
 
 .collapsible {
   display: block;
@@ -15,7 +16,7 @@
   
   &.open {
     max-height: 35px;
-    margin-top: 6px;
+    // margin-top: 6px;
     opacity: 1;
     transform: translateY(0);
     overflow: visible;
@@ -29,6 +30,7 @@
   max-height: 35px;
   padding: 10px;
   box-sizing: border-box;
+  @include text-input;
 }
 
 .date_mt6px {

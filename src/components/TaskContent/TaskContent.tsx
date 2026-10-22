@@ -45,7 +45,7 @@ export const TaskContent = ({task, currentMileage, onOpenModal}: TaskContentProp
     return (
         <>
             <div className={styles.item__content} onClick={onOpenModal}> 
-                <span className={styles.item__content_label}>Задача:</span>
+                {/* <span className={styles.item__content_label}>Задача:</span> */}
                 <li className={cn(styles.item__content_text, isDone && styles.item_done)}>{task.text}</li>
                 {task.description &&(
                     <p className={styles.item__content_description}>{task.description}</p>)}

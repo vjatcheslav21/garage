@@ -3,8 +3,9 @@ import { CAR_SLICE_NAME } from "@/storage/slices/sliceNames";
 import { fetchCar, fetchUser } from "@/storage/thunks/thunks";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-const carFromStorage = localStorage.getItem('car');
-const savedCar = carFromStorage ? JSON.parse(carFromStorage) : null;
+const carsFromStorage = localStorage.getItem('cars');
+const selectedCarId = localStorage.getItem('selectedCarId');
+const savedCars = carsFromStorage ? JSON.parse(carsFromStorage) : [];
 
 interface CarState {
     cars: Car[];
@@ -15,14 +16,12 @@ interface CarState {
 }
 
 const initialState: CarState = {
-    cars: savedCar ? [savedCar] : [],
-    carSelected: savedCar ? savedCar : null,
+    cars: savedCars,
+    carSelected: savedCars.find((car: Car) => car.id === selectedCarId) || savedCars[0] || null,
     isCheckedMileage: false,
     requestStatus: 'Idle',
     errorMessage: null
 }
-
-
 
 const carSlice = createSlice({
     name: CAR_SLICE_NAME,
@@ -34,10 +33,18 @@ const carSlice = createSlice({
                 carToUpdate.mileage = action.payload.mileage;
                 if (state.carSelected) 
                     { state.carSelected.mileage = action.payload.mileage;
-                      localStorage.setItem('car', JSON.stringify(action.payload));
+                      localStorage.setItem('cars', JSON.stringify(state.cars));
                     }
             }
             
+        },
+        selectCar:(state, action: PayloadAction<string>) => {
+            const foundCar = state.cars.find((car) => car.id === action.payload);
+            if (foundCar) {
+                state.carSelected = foundCar;
+                localStorage.setItem('selectedCarId', action.payload);
+                
+            }
         }
     },
     extraReducers: (builder) => {
@@ -48,9 +55,10 @@ const carSlice = createSlice({
             .addCase(fetchCar.fulfilled, (state, action: PayloadAction<Car>) => {
                 const newCar = action.payload;
                 state.requestStatus = 'Success';
-                localStorage.setItem('car', JSON.stringify(action.payload));
                 state.cars.push(newCar);
                 state.carSelected = newCar;
+                localStorage.setItem('cars', JSON.stringify(state.cars));
+                localStorage.setItem('selectedCarId', newCar.id);
             })
             .addCase(fetchCar.rejected, (state, action) => {
                 state.requestStatus = 'Failed';
@@ -64,5 +72,5 @@ const carSlice = createSlice({
     }
 })
 
-export const {editCar} = carSlice.actions;
+export const {editCar, selectCar} = carSlice.actions;
 export default carSlice.reducer;

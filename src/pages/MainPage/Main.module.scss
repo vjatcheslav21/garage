@@ -1,9 +1,9 @@
+@use '../../shared/styles/mixins' as *;
 
 .center {
   display: flex;
   flex-direction: column;
-  // padding: 32px 30px;
-  // gap: 25px;
+  padding: 10px;
   place-content: center;
   place-items: center;
   flex-grow: 1;
@@ -12,4 +12,8 @@
     // padding: 32px 20px 24px;
     // gap: 18px;
   }
+}
+.car_name {
+  align-self: flex-start;
+  @include text-h3;
 }

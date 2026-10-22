@@ -1,7 +1,6 @@
 import { useRef, type ReactNode } from 'react';
 import styles from './TaskModal.module.scss';
-import { useClickOutside } from '@/storage/hooks/useClickOutside';
-import { useClickEscape } from '@/storage/hooks/useClickEscape';
+import { BackIcon } from '@/shared/ui/icons';
 
 interface TaskModalProp {
     children: ReactNode;
@@ -11,17 +10,16 @@ interface TaskModalProp {
 export const TaskModal = ({children, onClose}: TaskModalProp) => {
 
     const modalRef = useRef<HTMLDivElement>(null);
-    useClickOutside(modalRef, onClose);
-    useClickEscape(onClose);
+    //Это модальное окно на смартфонах, возможно это лишняя логика
+    // useClickOutside(modalRef, onClose);
+    // useClickEscape(onClose);
 
     return (
         <>
             <div className={styles.overlay}></div>
             <div className={styles.modal}  ref={modalRef}>
-                <span className={styles['modal__close_btn']} onClick={onClose}>Закрыть</span>
-                <div className={styles.modal__content}>
-                    {children}
-                </div>
+                <span className={styles['modal__close_btn']} onClick={onClose}><BackIcon/></span>
+                {children}
             </div>
         </>
     )

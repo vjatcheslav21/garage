@@ -1,9 +1,11 @@
+@use '../../../../shared/styles/mixins' as *;
 .form {
     display: flex;
     flex-direction: column;   
     gap: 5px;
+    margin-top: 10px;
     &_label {
-        font-size: 12px
+        @include text-descr;
     }
     &_btn {
         align-self: end;

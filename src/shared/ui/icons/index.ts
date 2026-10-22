@@ -6,3 +6,4 @@ export { DescrIcon } from './DescrIcon';
 export { VKIcon } from './VKIcon';
 export { GitHubIcon } from './GitHubIcon';
 export { MileageIcon } from './MileageIcon';
+export { BackIcon } from './BackIcon';

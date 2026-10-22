@@ -96,6 +96,7 @@ export const Item = memo(({
                 )}
             </div>
             {isEditing ? <EditTaskForm 
+                isDone={task.isDone}
                 initialText={task.text} 
                 initialDescription={task.description} 
                 initialMileage={task.targetMileage}

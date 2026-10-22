@@ -1,5 +1,6 @@
 import styles from './Mileage.module.scss';
 import { Dropdown } from "@/components";
+import { parseMileage } from '@/shared/lib';
 import { Input } from '@/shared/ui';
 import { useState } from 'react';
 
@@ -19,12 +20,13 @@ export const Mileage = ({mileage, onUpdate}: MileageProps) => {
     }
 
     const handleSave = ():boolean => {
-        const numValue = parseInt(inputValue, 10);
+        const numValue = parseMileage(inputValue)
 
-        if(!isNaN(numValue) && numValue <= 0) {
-            setError("Введите корректный пробег");
-            return false;
-        }
+        //Проверить как себя ведет при ошибке
+        // if(!isNaN(numValue) && numValue <= 0) {
+        //     setError("Введите корректный пробег");
+        //     return false;
+        // }
 
         if (numValue < mileage) {
             setError(`Пробег не может быть меньше текущего (${mileage.toLocaleString('ru-RU')} км)`);
@@ -39,7 +41,11 @@ export const Mileage = ({mileage, onUpdate}: MileageProps) => {
     return(
         <>
         <div className={styles.mileage}>
-        <h2 className={styles.mileage_title}>Ваш пробег: {mileage.toLocaleString('ru-RU')} км</h2>
+        {mileage === 0 ? 
+            <h2 className={styles.mileage_title}>Пробег не указан</h2> 
+                :
+            <h2 className={styles.mileage_title}>Пробег: {mileage.toLocaleString('ru-RU')} км</h2>
+        }
             <Dropdown 
                     title="Изменить пробег"
                     ariaLabelledBy="Кнопка 'изменить пробег'"

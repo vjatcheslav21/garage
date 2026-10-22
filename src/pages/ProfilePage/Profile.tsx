@@ -8,7 +8,6 @@ import { Dropdown } from "@/components";
 
 export const Profile = () => {
     const user = useAppSelector(state => state.user.user);
-    const car = useAppSelector(state => state.cars.carSelected);
     const [userData, setUserData] = useState<TUser>(user || {email: '', name: ''});
     const dispatch = useAppDispatch();
 
@@ -30,12 +29,8 @@ export const Profile = () => {
 
     return(
         <div className={styles['profile']}>
-            <h2 className={styles['prodile_title']}>Данные профиля</h2>
+            <h2 className={styles['prodile_title']}>Ваши данные</h2>
             <div className={styles['profile__info']}>
-                <div className={styles['profile__info_car']}>
-                    <span className={styles['title']}>Ваш автомобиль: {car?.name}</span>
-                </div>
-                <ToggleDimension/>
                 <div className={styles['profile__info_user']}>
                     <Dropdown 
                             title={`Ваш email: ${user?.email}`}
@@ -66,6 +61,14 @@ export const Profile = () => {
                                 placeholder="Укажите name"
                                 />
                         {/* {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>} */}
+                    </Dropdown>
+                    <Dropdown 
+                        title={`Настроить критерий ТО`}
+                        ariaLabelledBy="Выбарть 'дата' или 'время'"
+                        description="Как определять срок ТО"
+                        onSave={handleSave}
+                        onOpen={handleOpen}                            >
+                            <ToggleDimension/>
                     </Dropdown>
                 </div> 
             </div> 

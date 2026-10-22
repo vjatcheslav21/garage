@@ -1,24 +1,15 @@
 import styles from './Main.module.scss';
-import { Mileage, Tasks } from '@/components';
-import { useAppDispatch, useAppSelector } from '@/storage/hooks/hooks';
-import { editCar } from '@/storage/slices/carSlice';
-
-
+import { Tasks } from '@/components';
+import { useAppSelector } from '@/storage/hooks/hooks';
 
 export const MainPage = () => {
-    const dispatch = useAppDispatch();
     const currentMileage = useAppSelector(state => state.cars.carSelected?.mileage || 0);
-
-    const handleMileageChange = (newMileage: number) => {
-      dispatch(editCar({mileage: newMileage}))
-    }
+    const carSelected = useAppSelector(state => state.cars.carSelected?.name);
     return(
         <main> 
             <section className={styles.center}>
-                <Mileage mileage={currentMileage} onUpdate={handleMileageChange}/>
-                {/* <section id="next-steps"></section> */}
+                <h2 className={styles.car_name}>Выбранный авто: {carSelected}</h2>
                 <Tasks currentMileage={currentMileage}/>
-                
             </section>
         </main>
     )

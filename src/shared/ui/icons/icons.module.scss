@@ -1,0 +1,7 @@
+.icon {
+    &:hover {
+        transform: scale(1.05);
+        color: var(--icons-color-hover);
+        cursor: pointer;
+      }
+}

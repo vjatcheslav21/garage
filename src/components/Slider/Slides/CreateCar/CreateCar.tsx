@@ -1,45 +1,22 @@
-import { Button, Input } from "@/shared/ui";
+import { ToggleDimension } from "@/shared/ui";
+import { AddCar } from "@/components/AddCar";
 import styles from './CreateCar.module.scss';
 
 interface CreateCarProps {
-    carName: string;
-    onNameChange: (value: string) => void;
-    carMileage: number;
-    onMileageChange: (value: string) => void;
-    onClickNext: () => void;
+    onCreate: (data: { name: string, mileage: number }) => void;
 }
 
-export const CreateCar = ({carName, onNameChange, carMileage, onMileageChange,  onClickNext}: CreateCarProps) => {
+export const CreateCar = ({onCreate}: CreateCarProps) => {
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        onClickNext();
-    }
-
-    return (
+    return(
         <>
-            <form className={styles.form} onSubmit={handleSubmit}>
-            <label className={styles.form_label} htmlFor="car">Название машины</label>
-                <Input 
-                    value={carName} 
-                    id={"car"}
-                    placeholder="Введите название авто" 
-                    onChange={onNameChange}/>
-                    
-            <label className={styles.form_label} htmlFor="car">Пробег</label>
-                <Input
-                    type="number"
-                    value={String(carMileage)} 
-                    placeholder="Введите актуальный пробег" 
-                    onChange={onMileageChange}/>
-                <Button 
-                    child={"Дальше"} 
-                    ariaLabelledby={"кнопка 'Сохранить данные автомобиля'"} 
-                    type={"submit"} 
-                    className={styles.form_btn}
-                    disabled={carName === '' || carMileage === 0}
-                    />
-            </form>
+        <div className={styles.create__car}>
+            <AddCar 
+                btnText="Дальше"
+                onSubmit={(data) => onCreate(data)}
+            />
+            <ToggleDimension/>
+        </div>
         </>
     )
 }

@@ -1,8 +1,11 @@
-import type { IconProp } from "@/shared/types/types"
+import type { IconProp } from "@/shared/types/types";
+import styles from '../icons.module.scss';
 
 export const VKIcon = ({ width = 20, height = 20, color = 'currentColor' }: IconProp) => {
     return (
-        <svg width={width} 
+        <svg 
+            className={styles.icon} 
+            width={width} 
             height={height} 
             viewBox="0 0 35 35" 
             fill={color} 

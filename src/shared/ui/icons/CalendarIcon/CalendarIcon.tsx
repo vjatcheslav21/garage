@@ -1,8 +1,10 @@
-import type { IconProp } from "@/shared/types/types"
+import type { IconProp } from "@/shared/types/types";
+import styles from '../icons.module.scss';
 
 export const CalendarIcon = ({ width = 20, height = 25, color = 'currentColor', onClick }: IconProp)  => {
     return (
         <svg 
+            className={styles.icon}
             width={width} 
             height={height} 
             viewBox="0 0 500 500" 

@@ -19,11 +19,12 @@ export const Slider = () => {
 
     useEffect(() => {
     if (requestStatus === 'Success') {
-                navigate('/main', { replace: true })
-            }
+            navigate('/main', { replace: true })
+        }
     }, [requestStatus]);
 
     const handleSubmit = () => {
+         console.log('dispatch fetchCar вызван!');
         dispatch(fetchCar(carData));
     }
     
@@ -47,13 +48,10 @@ export const Slider = () => {
                         </div>
                     <div className={styles.slide}>
                         <CreateCar 
-                            carName={carData.name} 
-                            onNameChange={(value) => 
-                                setCarData({...carData, name: value})} 
-                            carMileage={Number(carData.mileage)} 
-                            onMileageChange={(value) => 
-                                setCarData({...carData, mileage: Number(value)})} 
-                            onClickNext={next} 
+                            onCreate={(data) => {
+                                setCarData(data); 
+                                next();           
+                            }} 
                         />
                     </div>
                     <div className={styles.slide}>

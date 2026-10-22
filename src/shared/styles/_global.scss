@@ -18,18 +18,23 @@
   --text-menu: #1a1a25;
   
   --text-task-desc: rgb(58 58 74 / 50%);
+  --text-task-waiting: var(--text-task-desc);
   --text-desc: rgb(58 58 74 / 50%);
   --text-desc-dropdown: #1a1a25;
   
-  --text-modal: #e2e4e8;
   --text-btn: #fff;
   
   --bg: #f9fafb;
   --accent-bg: #e2e4e8;
   
+  --bg-modal: #e0e0e0;
+  --border-modal: #3a3a4a;
+  --text-modal: #e2e4e8;
+
   --border: #e2e4e8;
   
   --text-desc-hover: #3a3a4a;
+  --text-task-waiting-hover: #3a3a4a;
   --text-theme-hover: #3a3a4acf;
   --link-hover: rgb(58 58 74 / 50%);
   --link-hover-light: rgba(47, 48, 58, 0.5);
@@ -41,10 +46,16 @@
   --btn-checkbox: #3a3a4a;
   --btn-checkbox-color: #fff;
 
+  --border-slide: #3a3a4a;
+  --bg-active-slide: #3a3a4a;
+  --text-active-slide: #fff;
+  --swiper-navigation-color: #3a3a4a;
+  --bg-navigation-color: #e0e0e0;
 
+  --bg-input: #fff;
   --accent: #{$accent};
   --bg-dropdown: #{$bg-dropdown};
-  --accent-border: #{$accent-border};
+  --accent-border: #{$accent};
   --social-bg: #{$social-bg};
   --icons-color: #3A3A4A;
   --icons-color-hover: #3a3a4acf;
@@ -68,8 +79,12 @@
   --text-menu: #f3f4f6;
   
   --text-task-desc: rgb(244 243 236 / 50%);
+  --text-task-waiting: var(--text-task-desc);
   --text-desc: #ccc;
   
+  // --bg-modal: #001232;
+  --bg-modal: var(--accent-bg);
+  --border-modal: #3a3a4a;
   --text-modal: #3a3a4a;
   
   --bg: #001232;
@@ -77,6 +92,7 @@
   --border: #2a3140;
   
   --text-desc-hover: #f4f3ec;
+  --text-task-waiting-hover: #ccc;
   --text-theme-hover: #ccc;
   --link-hover: #f4f3ec;
   --link-hover-white: #f3f4f6;
@@ -84,6 +100,12 @@
   
   --btn-checkbox: #d0d0d0;
   --btn-checkbox-color: #333;
+
+  --border-slide: #ccc;
+  --bg-active-slide: #ccc;
+  --text-active-slide: #fff;
+  --swiper-navigation-color: #ccc;
+  --bg-navigation-color: rgba(69, 98, 153);
 }
 
 @media (width <= #{$tablet-width}) {

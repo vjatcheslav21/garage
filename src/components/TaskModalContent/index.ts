@@ -1,0 +1,1 @@
+export { TaskModalContent } from './TaskModalContent';
