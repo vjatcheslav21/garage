@@ -5,6 +5,8 @@ import { useState } from "react";
 import type { TUser } from "@/shared/types/types";
 import { userLogin, userLogout } from "@/storage/slices/userSlice";
 import { Dropdown } from "@/components";
+import { clearCarsState } from "@/storage/slices/carSlice";
+import { fetchTasksApi } from "@/storage/utils/taskApi";
 
 export const Profile = () => {
     const user = useAppSelector(state => state.user.user);
@@ -25,6 +27,8 @@ export const Profile = () => {
 
     const logoutUser = () => {
         dispatch(userLogout());
+        dispatch(clearCarsState());
+        dispatch(fetchTasksApi.util.resetApiState());
     }
 
     return(

@@ -7,3 +7,12 @@
         align-self: end;
     }
 }
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    &_item {
+        list-style-type: disc;
+        margin-left: 10px;
+    }
+}

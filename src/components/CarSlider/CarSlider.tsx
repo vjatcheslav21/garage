@@ -12,6 +12,8 @@ import type { Swiper as SwiperType } from "swiper";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import { Input } from "@/shared/ui";
+import { EditableCarName } from "@/components";
 
 export const CarSlider = () => {
     const [forceOpen, setForceOpen] = useState(false);
@@ -42,7 +44,7 @@ export const CarSlider = () => {
             <Swiper
                 modules={[Navigation]}
                 navigation
-                spaceBetween={'15px'}
+                spaceBetween={10}
                 slidesPerView={'auto'}
                 centeredSlidesBounds={true}
                 centerInsufficientSlides={true}
@@ -53,19 +55,33 @@ export const CarSlider = () => {
                     768: { slidesPerView: 'auto' }
                 }}
             >
-                {cars.map((car, index) => (
-                    <SwiperSlide 
-                        key={car.id}
-                        onClick={() => handleSelectCar(car.id, index)}
-                    >
-                        <div className={cn(
-                            styles.slide,
-                            car.id === carSelected?.id && styles.slide_active
-                        )}>
-                            <h4>{car.name}</h4>
-                        </div>
-                    </SwiperSlide>
-                ))}
+                {cars.map((car, index) => {
+                    const isSelected = car.id === carSelected?.id;
+                    
+                    return (
+                        <SwiperSlide 
+                            key={car.id}
+                            onClick={() => handleSelectCar(car.id, index)}
+                        >
+                            <div className={cn(
+                                styles.slide,
+                                isSelected && styles.slide_active
+                            )}>
+                                {isSelected ? (
+                                    <EditableCarName key={car.id} car={car} />
+                                    ) : (
+                                    <Input 
+                                        value={car.name}
+                                        variant='slider'
+                                        onChange={() => 
+                                                console.log('по идеи этот инпут не имеет возможности редактирования')}
+                                        
+                                    />
+                                )}
+                            </div>
+                        </SwiperSlide>
+                    );
+                })}
             </Swiper>
 
             <div className={styles.add_car_wrapper}>

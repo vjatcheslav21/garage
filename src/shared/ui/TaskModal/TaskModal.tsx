@@ -8,12 +8,7 @@ interface TaskModalProp {
 }
 
 export const TaskModal = ({children, onClose}: TaskModalProp) => {
-
     const modalRef = useRef<HTMLDivElement>(null);
-    //Это модальное окно на смартфонах, возможно это лишняя логика
-    // useClickOutside(modalRef, onClose);
-    // useClickEscape(onClose);
-
     return (
         <>
             <div className={styles.overlay}></div>

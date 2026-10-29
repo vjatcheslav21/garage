@@ -44,18 +44,6 @@
     margin-left: 5px;
 }
 
-.input_date {
-//   border: 1px solid $input-border;
-//   border-radius: 4px;
-//   max-height: 35px;
-//   padding: 10px;
-//   box-sizing: border-box;
-  @include text-input;
-    ::placeholder {
-        @include text-input;
-    }
-}
-
 .date_mt6px {
   margin-top: 6px;
 }
@@ -76,7 +64,39 @@
     border-radius: 0px;
 }
 
+.slider {
+    place-items: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: inherit;
+    font: inherit;
+    padding: 0;
+    cursor: default;
+    pointer-events: none;
+    @include text-h4;
+    &:focus {
+        border-bottom: none;
+    }
+}
+.inline-slider {
+    place-items: center;
+    margin: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: inherit;
+    font: inherit;
+    padding: 0;
+    cursor: pointer;
+    @include text-h4;
+}
+
 .disabled {
     opacity: 0.8;
     background-color: transparent;
+}
+
+.password_btn {
+    position: absolute;
 }

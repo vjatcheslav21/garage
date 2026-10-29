@@ -13,3 +13,4 @@ export * from './TaskContent';
 export * from './TaskModalContent';
 export * from './CarSlider';
 export * from './AddCar';
+export * from './EditableCarName';

@@ -9,6 +9,11 @@
     &_wrapper {
         display: flex;
         justify-content: space-around;
+        @media(max-width: 576px) {
+            flex-direction: column;
+            place-self: center;
+            gap: 15px;
+        }
     }
     &_p {
         text-align: end; 

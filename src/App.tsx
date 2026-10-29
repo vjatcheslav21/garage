@@ -41,7 +41,6 @@ function App() {
             element={
               <ProtectedRoute 
                 children={cars.length === 0 ? <IntroPage/> : <MainPage />}
-                // children={<IntroPage/>}
               />}
           />
           <Route 

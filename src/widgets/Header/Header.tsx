@@ -3,31 +3,21 @@ import styles from './Header.module.scss';
 import { BurgerMenu, NavBar } from "@/components";
 import { useMediaQuery } from "@/storage/hooks/useMediaQuery";
 import { useAppSelector } from "@/storage/hooks/hooks";
-import { useEffect, useState } from "react";
-
+import { useLocation } from "react-router-dom";
 
 export const Header = () => {
     const isAuth = useAppSelector(state => state.user.isAuth);
-    const isDesktop = useMediaQuery('(min-width: 1024px)');
-    const isCheckedMileage = useAppSelector(state => state.cars.isCheckedMileage);
-    const [showDot, setShowDot] = useState(false);
+    const cars = useAppSelector(state => state.cars.cars);
+    const location = useLocation();
 
-    useEffect(() => {
-        if (isCheckedMileage) {
-            setShowDot(true);
-        }
-    }, [isCheckedMileage]);
+    const isOnIntroPage = location.pathname === '/main' && cars.length === 0;
     
+    const isDesktop = useMediaQuery('(min-width: 1024px)');
     return(
         <header className={styles.header}>
             <Logo/>
-                {isAuth &&
-                    (isDesktop ? 
-                        <NavBar 
-                            showDot={showDot} 
-                            onOpen={() => setShowDot(false)}/> 
-                                : 
-                        <BurgerMenu/> )
+                {isAuth && !isOnIntroPage &&
+                    (isDesktop ? <NavBar/> : <BurgerMenu/>)
                 }  
         </header>
     )

@@ -40,6 +40,15 @@
     box-sizing: border-box;
     transition: all 0.2s ease;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    :global(.inline) {
+        margin-left: 0;
+        text-align: center;
+    }
+
     &_active {
         background-color: var(--border-slide);
         color: white;

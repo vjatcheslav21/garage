@@ -1,7 +1,7 @@
 import styles from './Mileage.module.scss';
 import { Dropdown } from "@/components";
-import { parseMileage } from '@/shared/lib';
-import { Input } from '@/shared/ui';
+import { validateMileage } from '@/shared/lib';
+import { ErrorMessage, Input } from '@/shared/ui';
 import { useState } from 'react';
 
 interface MileageProps {
@@ -20,23 +20,22 @@ export const Mileage = ({mileage, onUpdate}: MileageProps) => {
     }
 
     const handleSave = ():boolean => {
-        const numValue = parseMileage(inputValue)
-
-        //Проверить как себя ведет при ошибке
-        // if(!isNaN(numValue) && numValue <= 0) {
-        //     setError("Введите корректный пробег");
-        //     return false;
-        // }
-
-        if (numValue < mileage) {
-            setError(`Пробег не может быть меньше текущего (${mileage.toLocaleString('ru-RU')} км)`);
+        const result = validateMileage(inputValue, mileage);
+        if (result.error) {
+            setError(result.error);
             return false;
         }
+        mileage = result.value;
 
         setError(null);
-        onUpdate(numValue);
-        return true
+        onUpdate(result.value);
+        return true;
     }
+
+    const handleMileageChange = (value: string) => {
+        const cleaned = value.replace(/\D/g, '').slice(0, 7);
+        setInputValue(cleaned);
+    };
 
     return(
         <>
@@ -54,11 +53,11 @@ export const Mileage = ({mileage, onUpdate}: MileageProps) => {
                     >
                     <Input
                         value={inputValue}
-                        onChange={setInputValue}
-                        type="number"
+                        onChange={handleMileageChange}
+                        type="text"
                         placeholder={`Текущий: ${mileage.toLocaleString('ru-RU')} км`}
                         />
-                {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
+                {error && <ErrorMessage error={error}/>}
             </Dropdown>
         </div>
             <div className={styles.ticks}></div>

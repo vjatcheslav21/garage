@@ -1,3 +1,3 @@
 export { Input } from './Input';
 export { InputRadio } from './InputRadio';
-export { InputInline } from './InputInline';
+export { InputPassword } from './InputPassword';

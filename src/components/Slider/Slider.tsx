@@ -35,7 +35,6 @@ export const Slider = () => {
     return (
         <>
         <div className={styles.container}>
-            {/* <button onClick={prev} className={cn(styles.btn, styles.btn_prev)}>←</button> */}
             <div className={styles.slides_track}>
                 <div className={styles.slider}
                 style={{
@@ -59,7 +58,6 @@ export const Slider = () => {
                     </div>
                 </div>
             </div>
-            {/* <button onClick={next} className={cn(styles.btn, styles.btn_next)}>→</button> */}
             <div className={styles.steps}>
                 <span>Шаг {activeIndex + 1} / 3</span>
             </div>

@@ -1,9 +1,9 @@
 import type { Task } from '@/shared/types/types';
 import styles from './TaskModalContent.module.scss';
-import { CalendarIcon, DescrIcon, Input, MileageIcon } from '@/shared/ui';
+import { CalendarIcon, DescrIcon, ErrorMessage, Input, MileageIcon } from '@/shared/ui';
 import { useState } from 'react';
 import { InputDate } from '@/shared/ui/Input/InputDate';
-import { parseMileage } from '@/shared/lib';
+import { parseMileage, validateMileage, validateName } from '@/shared/lib';
 import { format } from 'date-fns';
 
 interface TaskModalContentProps {
@@ -19,14 +19,61 @@ export const TaskModalContent = ({task, onOpenModal, onUpdateField}: TaskModalCo
     const [editDate, setEditDate] = useState(
         task.targetDate ? new Date(task.targetDate) : null 
     );
+    const [error, setError] = useState<string | null>(null);
+
+
+    const handleTextChange = (value: string) => {
+        if (value.length <= 25) {
+            setEditText(value)
+            if(error) setError(null);
+        }
+    }
+
+    const handleMileageChange = (value: string) => {
+        const cleaned = value.replace(/\D/g, '').slice(0, 7);
+        const num = parseMileage(cleaned);
+        setEditMileage(num);
+        if(error) setError(null);
+    }
+
+    const handleTextBlur = () => {
+        if (editText === task.text) return;
+
+        const textResult = validateName(editText);
+        if (textResult.error) {
+            setError(textResult.error)
+            return;
+        }
+        setError(null);
+        onUpdateField({ text: textResult.value });
+    }
+
+    const handleMileageBlur = () => {
+        if (editMileage === task.targetMileage) return;
+
+        const mileageResult = validateMileage(String(editMileage));
+        if (mileageResult.error) {
+            setError(mileageResult.error);
+            return;
+        }
+        setError(null);
+        onUpdateField({ targetMileage: mileageResult.value });
+    }
+
+    const handleDateChange = (date: Date | null) => {
+        setEditDate(date);
+        setError(null);
+        onUpdateField({ targetDate: date ? format(date, 'yyyy-MM-dd') : null })
+    }
+
     return(
         <div className={styles.modal__content} onClick={onOpenModal}>
             <h2>
                 <Input 
                     value={editText} 
-                    onChange={setEditText} 
+                    onChange={handleTextChange} 
                     variant='inline' 
-                    onBlur={() => onUpdateField({text: editText})}
+                    onBlur={handleTextBlur}
                     placeholder='Введите название задачи'/>
             </h2>
             <div className={styles.modal__content_info}>
@@ -44,11 +91,7 @@ export const TaskModalContent = ({task, onOpenModal, onUpdateField}: TaskModalCo
                     <CalendarIcon/>
                     <InputDate 
                         selectedDate={editDate} 
-                        onChangeDate={(date) => {
-                            setEditDate(date), 
-                            onUpdateField(
-                                {targetDate: date ? format(date, 'yyyy-MM-dd') : null})
-                            }} 
+                        onChangeDate={handleDateChange} 
                         variant='inline'
                         placeholder='Добавить дату'/>
                 </div>
@@ -56,11 +99,12 @@ export const TaskModalContent = ({task, onOpenModal, onUpdateField}: TaskModalCo
                     <MileageIcon/>
                     <Input 
                         value={String(editMileage)} 
-                        onChange={value => setEditMileage(parseMileage(value))}
-                        onBlur={() => onUpdateField({targetMileage: editMileage})} 
+                        onChange={handleMileageChange}
+                        onBlur={handleMileageBlur} 
                         variant='inline'
                         placeholder='Указать пробег'/>
                 </div>
+                {error && <ErrorMessage error={error}/>}
             </div>
         </div>
     )

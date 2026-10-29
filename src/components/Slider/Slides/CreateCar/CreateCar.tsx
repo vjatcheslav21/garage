@@ -11,11 +11,13 @@ export const CreateCar = ({onCreate}: CreateCarProps) => {
     return(
         <>
         <div className={styles.create__car}>
+            <h4 className="create__car_title">Добавте авто</h4>
+            <label className={styles.form_label}>Настроить критерий ТО</label>
+            <ToggleDimension/>
             <AddCar 
                 btnText="Дальше"
                 onSubmit={(data) => onCreate(data)}
             />
-            <ToggleDimension/>
         </div>
         </>
     )

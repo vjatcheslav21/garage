@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import styles from './EditTaskForm.module.scss';
 import { cn } from "@/shared/lib/clsx";
-import { Button, Input } from "@/shared/ui";
+import { Button, ErrorMessage, Input } from "@/shared/ui";
 import { useAppDispatch, useClickEscape, useClickOutside } from "@/storage/hooks";
 import { setPrefillTaskData } from "@/storage/slices/uiSlice";
 import { InputDate } from "@/shared/ui/Input/InputDate";
+import { validateMileage, validateName } from "@/shared/lib";
 
 interface EditTaskFormProps {
     isDone?: boolean;
@@ -30,24 +31,43 @@ export const EditTaskForm = ({
   const [editDesc, setEditDesc] = useState(initialDescription || "");
   const [editMileage, setEditMileage] = useState(initialMileage);
   const [editDate, setEditDate] = useState(initialDate);
+  const [error, setError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   
   const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setEditText(initialText);
-    setEditDesc(initialDescription || "");
-    setEditMileage(initialMileage);
-    setEditDate(initialDate);
-  }, [initialText, initialDescription, initialMileage, initialDate]);
+      setEditText(initialText);
+      setEditDesc(initialDescription || "");
+      setEditMileage(initialMileage);
+      setEditDate(initialDate);
+      setError(null);
+    }, [initialText, initialDescription, initialMileage, initialDate]);
 
-  useClickOutside(formRef, onCancel);
-  useClickEscape(onCancel);
+    useClickOutside(formRef, onCancel);
+    useClickEscape(onCancel);
 
-  const handleRepeat = () => {
-    dispatch(setPrefillTaskData({ text: editText, description: editDesc }))
-    onCancel();
-  }
+    const handleRepeat = () => {
+      dispatch(setPrefillTaskData({ text: editText, description: editDesc }))
+      onCancel();
+    }
+
+    const handleSaveClick = () => {
+      const textResult = validateName(editText);
+      if (textResult.error) {
+        setError(textResult.error);
+        return
+      }
+
+      const mileageResult = validateMileage(String(editMileage));
+      if (mileageResult.error) {
+        setError(mileageResult.error);
+        return
+      }
+
+      setError(null);
+      onSave(textResult.value, editDesc, mileageResult.value, editDate);
+    }
 
     return (
       <div className={cn(styles.item_wrapper, styles.editing_mode)} ref={formRef}>
@@ -62,7 +82,7 @@ export const EditTaskForm = ({
             />
             <Input
             className={cn(isDone && styles.input_disabled)}
-            type="number"
+            type="text"
             value={String(editMileage)}
             onChange={(valueStr) => setEditMileage(parseInt(valueStr, 10) || 0)}
             placeholder="На каком пробеге?"   
@@ -84,6 +104,7 @@ export const EditTaskForm = ({
               maxLength={300}
               disabled={isDone} 
           />
+          {error && <ErrorMessage error={error}/>}
           <div className={styles.edit_btns}>
             {isDone ? 
             <>
@@ -105,7 +126,7 @@ export const EditTaskForm = ({
               <>
               <Button 
                 variant="save"
-                onClick={() => {onSave(editText, editDesc, editMileage, editDate)}}
+                onClick={handleSaveClick}
                 ariaLabelledby="сохранить" 
                 child={"Сохранить"} 
                 type={"button"}/>

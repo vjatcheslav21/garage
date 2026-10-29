@@ -8,7 +8,7 @@ export const MainPage = () => {
     return(
         <main> 
             <section className={styles.center}>
-                <h2 className={styles.car_name}>Выбранный авто: {carSelected}</h2>
+                <h3 className={styles.car_name}>Выбранный авто: {carSelected}</h3>
                 <Tasks currentMileage={currentMileage}/>
             </section>
         </main>
