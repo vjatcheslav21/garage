@@ -7,5 +7,6 @@ export * from './NotificationMenu';
 export * from './ToggleTheme';
 export * from './ToggleDimension';
 export * from './TaskModal';
+export * from './ErrorMessage';
 
 export * from './icons';

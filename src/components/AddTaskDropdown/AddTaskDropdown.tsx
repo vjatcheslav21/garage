@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import styles from './AddTaskDropdown.module.scss';
-import { CalendarIcon, DescrIcon, Input, MileageIcon} from "@/shared/ui";
+import { CalendarIcon, DescrIcon, ErrorMessage, Input, MileageIcon} from "@/shared/ui";
 import { Dropdown } from "@/components/Dropdown";
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from "date-fns";
 import { useAppDispatch, useAppSelector } from "@/storage/hooks/hooks";
 import { clearPrefillTaskData } from "@/storage/slices/uiSlice";
 import { InputDate } from "@/shared/ui/Input/InputDate";
-import { cn, parseMileage } from "@/shared/lib";
+import { cn, validateMileage, validateName } from "@/shared/lib";
 
 interface AddTaskDropdownProps {
   onAddTask: (text: string, 
@@ -30,7 +30,6 @@ export const AddTaskDropdown = ({ onAddTask }: AddTaskDropdownProps) => {
   const carSelectedId = useAppSelector(state => state.cars.carSelected?.id);
   const dimension = useAppSelector(state => state.user.selectDimension);
   const prefillTaskData = useAppSelector(state => state.ui.prefillTaskData);
-  //В будущем валидация на форму
   const [error, setError] = useState<string|null>(null);
 
   useEffect(() => {
@@ -52,37 +51,52 @@ export const AddTaskDropdown = ({ onAddTask }: AddTaskDropdownProps) => {
     setError(null);
   }
 
-  const handleSave = (): boolean => {
-    const text = taskText.trim();
-    const mileage = parseMileage(taskMileage);
-    const description = taskDescr.trim();
-    const formattedDate = startTaskDate ? format(startTaskDate, 'yyyy-MM-dd') : ''; 
+    const handleSave = (): boolean => {
+      const textResult = validateName(taskText);
+      const mileageResult = validateMileage(taskMileage);
+      const description = taskDescr.trim();
+      const formattedDate = startTaskDate ? format(startTaskDate, 'yyyy-MM-dd') : ''; 
+      
+      if (textResult.error) {
+          setError(textResult.error);
+          return false;
+      }
 
-    if (dimension === 'mileage') {
-      if (text && !isNaN(mileage) && mileage > 0) {
-        onAddTask(text, mileage, description, formattedDate, carSelectedId || '');
-        clearInput();
-        return true; 
+      let mileage = 0;
+      if (dimension === 'mileage') {
+        if (mileageResult.error) {
+            setError(mileageResult.error);
+            return false;
+        }
+        mileage = mileageResult.value;
+
+      } else {
+        if (!formattedDate) {
+          setError("Выберите дату");
+          return false;
+        }
       }
-      if (text === "" || isNaN(mileage)) {
-        setError("Заполните все поля");
-        return false;
-      }
-    } else {
-      if (text && formattedDate) {
-        // const onSaveMileage = isNaN(mileage) && mileage > 0 ? mileage : 0;
-        // onAddTask(text, onSaveMileage, description, formattedDate);
-        onAddTask(text, mileage, description, formattedDate, carSelectedId || '');
-        clearInput();
-        return true;
-      }
-      if (text === "" || !formattedDate) {
-        setError("Заполните все поля");
-        return false;
-      }
+      setError(null);
+      onAddTask(
+        textResult.value,
+        mileage,
+        description,
+        formattedDate,
+        carSelectedId || ''
+      );
+      clearInput();
+      return true;
     }
-      return false;
-  };
+    const handleNameChange = (value: string) => {
+        if (value.length <= 25) {
+            setTaskText(value)
+        }
+    }
+
+    const handleMileageChange = (value: string) => {
+        const cleaned = value.replace(/\D/g, '').slice(0, 7);
+        setTaskMileage(cleaned);
+    };
 
   const addCollapsibleInput = (setState: (arg0: boolean) => void) => {
     setState(true);
@@ -107,12 +121,11 @@ export const AddTaskDropdown = ({ onAddTask }: AddTaskDropdownProps) => {
            <>
            <Input
               value={taskText}
-              onChange={setTaskText}
+              onChange={handleNameChange}
               placeholder="Что сделать?"/>
-              {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
             <Input
               value={taskMileage}
-              onChange={setTaskMileage}
+              onChange={handleMileageChange}
               type="number"
               placeholder="На каком пробеге?"/>
             <Input 
@@ -127,7 +140,6 @@ export const AddTaskDropdown = ({ onAddTask }: AddTaskDropdownProps) => {
                 onChangeDate={setStartTaskDate} 
                 variant={"classic"}              
                 />
-              {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
             </div>
             </>
            ) : (
@@ -136,7 +148,6 @@ export const AddTaskDropdown = ({ onAddTask }: AddTaskDropdownProps) => {
               value={taskText}
               onChange={setTaskText}
               placeholder="Что сделать?"/>
-              {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
             <InputDate 
                 placeholder="Дата"
                 selectedDate={startTaskDate}
@@ -156,6 +167,7 @@ export const AddTaskDropdown = ({ onAddTask }: AddTaskDropdownProps) => {
               placeholder="Описание(необязательно)"/>
              </>
             )}
+              {error && <ErrorMessage error={error}/>}
       </Dropdown>
     )
   }

@@ -69,7 +69,6 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
     setEditingTaskId(null);
   };
 
-  //Сохранение значения инпутов при потере фокуса
   const handleUpdateField = (data: Partial<Task>) => {
     if (!activeTask) return;
     updateTask({id: activeTask.id, ...data})

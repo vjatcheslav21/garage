@@ -73,4 +73,12 @@
 	font-size: max(1rem, 16px);
 	color: var(--text-input);
 }
+
+@mixin text-error {
+	font-family: $font-base;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16px;
+	color: var(--text-error);
+}
 /* stylelint-enable at-rule-no-unknown */

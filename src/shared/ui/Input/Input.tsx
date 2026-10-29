@@ -2,7 +2,7 @@
 import { cn } from '@/shared/lib/clsx';
 import styles from './Input.module.scss';
 
-export type VariantInput = 'classic' | 'inline' | 'disabled';
+export type VariantInput = 'classic' | 'inline' | 'slider' | 'inline-slider' | 'disabled';
 export interface InputProps {
     className?: string;
     value: string;          
@@ -21,6 +21,8 @@ export const Input = ({className, value, onBlur, onChange, placeholder, type="te
             <input 
                 className={cn(styles.input, 
                     variant === 'inline' && styles.inline,
+                    variant === 'slider' && styles.slider,
+                    variant === 'inline-slider' && styles['inline-slider'],
                     variant === 'disabled' && styles.disabled
                 )}  
                 type={type}

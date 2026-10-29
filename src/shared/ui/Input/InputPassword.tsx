@@ -3,13 +3,14 @@ import styles from '../Input/Input.module.scss';
 import { EyeIcon } from '@/shared/ui/icons/EyeIcon';
 import { EyeOffIcon } from '@/shared/ui/icons/EyeOffIcon';
 import { cn } from '@/shared/lib/clsx';
-interface PasswordInputProps {
+
+interface InputPasswordProps {
     value?: string;
     onChange: (v: string) => void;
     placeholder?: string;
 }
 
-export const PasswordInput = ({ value, onChange, placeholder }: PasswordInputProps) => {
+export const InputPassword = ({ value, onChange, placeholder }: InputPasswordProps) => {
     
   const [visible, setVisible] = useState(false);
 

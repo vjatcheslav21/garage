@@ -13,5 +13,8 @@
         &:hover {
             color: var(--nav-link-hover);
         }
+        &-active {
+            color: var(--nav-link-hover);  // ← Цвет активной ссылки!
+        }
     }
 }

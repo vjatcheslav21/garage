@@ -71,7 +71,6 @@
   &-wrapper {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
   }
   &-icons {
     display: flex;
@@ -86,9 +85,6 @@
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
-  }
-  &-btn {
-    margin-top: 10px;
   }
 }
 

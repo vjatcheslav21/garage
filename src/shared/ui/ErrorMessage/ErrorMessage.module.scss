@@ -1,0 +1,6 @@
+@use '../../styles/mixins' as *; 
+
+.error {
+    text-wrap: wrap;
+    @include text-error;
+}

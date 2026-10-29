@@ -37,11 +37,11 @@ const userSlice = createSlice({
     name: USER_SLICE_NAME,
     initialState,
     reducers: {
-        userLogin:(state, actions) => {
+        userLogin: (state, actions) => {
             state.isAuth = true
             state.user = actions.payload
         },
-        userLogout:(state) => {
+        userLogout: (state) => {
             state.isAuth = false;
             state.user = null;
             state.requestStatus = 'Idle';
@@ -53,6 +53,9 @@ const userSlice = createSlice({
         },
         toggleTheme:(state, action: PayloadAction<Theme>) => {
             state.themeColor = action.payload
+        },
+        clearError: (state) => {
+            state.errorMessage = null;
         }
     },
     extraReducers: (builder) => {
@@ -89,5 +92,5 @@ const userSlice = createSlice({
     }
 })
 
-export const {userLogin, userLogout, setDimension, toggleTheme} = userSlice.actions;
+export const {userLogin, userLogout, setDimension, toggleTheme, clearError} = userSlice.actions;
 export default userSlice.reducer;

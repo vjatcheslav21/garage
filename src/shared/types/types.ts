@@ -9,6 +9,7 @@ export interface Task {
     targetDate?: string | null;
     description?: string;
     carId: string;
+    userEmail: string;
 }
 
 export interface ListProps {
