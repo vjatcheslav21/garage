@@ -21,7 +21,8 @@
   --text-task-desc: rgb(58 58 74 / 50%);
   --text-task-waiting: var(--text-task-desc);
   --text-desc: rgb(58 58 74 / 50%);
-  --text-desc-dropdown: #1a1a25;
+  // --text-desc-dropdown: #1a1a25;
+  --text-desc-dropdown: #3a3a4a;
   
   --text-btn: #fff;
   --text-error: tomato;
@@ -58,6 +59,7 @@
   --text-active-slide: #fff;
   --swiper-navigation-color: #3a3a4a;
   --bg-navigation-color: #e0e0e0;
+  --text-car-slider: #f9fafb;
 
   --bg-input: #fff;
   --accent: #{$accent};
@@ -103,22 +105,22 @@
   --text-theme-hover: #ccc;
   --link-hover: #f4f3ec;
   --link-hover-white: #f3f4f6;
-  --nav-link-hover: #ccc;
+  --nav-link-hover: #aeaeae;
   
-  --btn-checkbox: #d0d0d0;
+  --btn-checkbox: #fff;
   --btn-checkbox-color: #333;
 
   --btn-text-color-theme: #333;
   --btn-text-bg-theme: #e2e4e8;
 
-  --label-color: var(--text-modal);
-  --label-color-intro: #f4f3ec;
+  --label-color: var(--text);
 
-  --border-slide: #ccc;
-  --bg-active-slide: #ccc;
-  --text-active-slide: #fff;
-  --swiper-navigation-color: #ccc;
+  --border-slide: #f4f3ec;
+  --bg-active-slide: #f4f3ec;
+  --text-active-slide: #3a3a4a;
+  --swiper-navigation-color: #f4f3ec;
   --bg-navigation-color: rgba(69, 98, 153);
+  --text-car-slider: #3a3a4a;
 }
 
 @media (width <= #{$tablet-width}) {

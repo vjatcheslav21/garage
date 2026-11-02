@@ -3,10 +3,6 @@ import { CAR_SLICE_NAME } from "@/storage/slices/sliceNames";
 import { fetchCar, fetchUser } from "@/storage/thunks/thunks";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-// const carsFromStorage = localStorage.getItem('cars');
-// const selectedCarId = localStorage.getItem('selectedCarId');
-// const savedCars = carsFromStorage ? JSON.parse(carsFromStorage) : [];
-
 const getUserCarsKey = () => {
     const userStr = localStorage.getItem('user');
     if (!userStr) return 'cars_guest';

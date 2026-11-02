@@ -1,8 +1,8 @@
 import { useRef, useState } from "react"
 import styles from './BurgerMenu.module.scss';
 import { cn } from "@/shared/lib/clsx";
-import { Link} from "react-router-dom";
 import { useClickEscape, useClickOutside } from "@/storage/hooks";
+import { NavList } from "@/shared/ui";
 
 export const BurgerMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -37,17 +37,11 @@ export const BurgerMenu = () => {
                     styles.menu_nav, 
                     isOpen && styles.open
                 )}>
-                <ul className={styles['menu_list']}>
-                    <li className={styles.nav_item} onClick={closeMenu}>
-                        <Link to="/main" className={styles['menu_list-link']}>Главная</Link>
-                    </li>
-                    <li className={styles.nav_item} onClick={closeMenu}>
-                        <Link to="/profile" className={styles['menu_list-link']}>Профиль</Link>
-                    </li>
-                    <li className={styles.nav_item} onClick={closeMenu}>
-                        <Link to="/car" className={styles['menu_list-link']}>Авто</Link>
-                    </li>
-                </ul>
+                <NavList 
+                    onLinkClick={closeMenu}
+                    className={styles.menu_list}
+                    linkClassName={styles['menu_list-link']}
+                />
             </nav>
         </div>
   );

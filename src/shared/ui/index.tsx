@@ -8,5 +8,6 @@ export * from './ToggleTheme';
 export * from './ToggleDimension';
 export * from './TaskModal';
 export * from './ErrorMessage';
+export * from './NavList';
 
 export * from './icons';

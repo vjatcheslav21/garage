@@ -67,11 +67,11 @@
 .menu_list {
   list-style: none;
   padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
   text-align: center;
-}
-
-.menu_list li {
-  margin: 20px 0;
 }
 
 .menu_list-link {
@@ -79,10 +79,12 @@
   font-size: 24px;
   color: var(--text-menu);
   transition: color 0.3s;
-}
-.nav_item {
-    @include text-h2;
-    :hover {
-      color: var(--nav-link-hover);
-    }
+  
+  &.nav_item-link-active {
+    color: var(--nav-link-hover);
+  }
+  
+  &:hover {
+    opacity: 0.7;
+  }
 }

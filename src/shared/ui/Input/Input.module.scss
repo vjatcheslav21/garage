@@ -3,6 +3,7 @@
 
 .input_wrapper {
     position: relative;
+    display: grid;
 }
 
 .input {
@@ -42,7 +43,11 @@
 
 .radio_text  {
     margin-left: 5px;
-    color: var(--label-color-intro);
+    color: var(--label-color);
+}
+
+input[type="radio"] {
+    accent-color: var(--label-color);
 }
 
 .date_mt6px {
@@ -55,7 +60,6 @@
     border: none;
     outline: none;
     color: inherit;
-    font: inherit;
     padding: 0;
     cursor: pointer;
 }
@@ -86,8 +90,7 @@
     background: transparent;
     border: none;
     outline: none;
-    color: inherit;
-    font: inherit;
+    color: var(--text-car-slider);
     padding: 0;
     cursor: pointer;
     @include text-h4;

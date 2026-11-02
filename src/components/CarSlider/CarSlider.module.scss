@@ -51,49 +51,33 @@
 
     &_active {
         background-color: var(--border-slide);
-        color: white;
     }
 }
 
 :global(.swiper-button-next),
 :global(.swiper-button-prev) {
-  background-color: var(--bg-navigation-color);
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+    background-color: var(--bg-navigation-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 :global(.swiper-button-disabled) {
-  opacity: 0.35;
-  cursor: not-allowed;
-  background-color: transparent;
+    opacity: 0.35;
+    cursor: not-allowed;
+    background-color: transparent;
 }
 
 :global(.swiper-button-prev) {
-  left: 0;
+    left: 0;
 }
 :global(.swiper-button-next) {
-  right: 0;
+    right: 0;
 }
-
-
-// @media (max-width: 767px) {
-//     :global(.swiper-button-next),
-//     :global(.swiper-button-prev) {
-//         display: none !important;
-//     }
-//     .slide {
-//         width: 150px;
-//     }
-    
-//     :global(.swiper) {
-//         width: 100%;
-//     }
-// }
 
 @media (max-width: 767px) {
     :global(.swiper-button-next),

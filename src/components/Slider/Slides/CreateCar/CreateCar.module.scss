@@ -1,21 +1,8 @@
 @use '../../../../shared/styles/mixins' as *;
-// .form {
-//     display: flex;
-//     flex-direction: column;   
-//     gap: 5px;
-//     margin-top: 10px;
-//     &_label {
-//         @include text-descr;
-//     }
-//     &_btn {
-//         align-self: end;
-//     }
-// }
+
 .create__car {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    &_label {
-        color: var(--label-color-intro);
-    }
+    --label-color: var(--text);
 }

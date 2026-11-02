@@ -2,30 +2,7 @@ import type { Task } from "@/shared/types/types";
 import { BASE_URL } from "@/storage/utils/api";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-let mockDatabase: Task[] = [
-    // { 
-    //     id: 1, 
-    //     text: 'Поменять масло', 
-    //     isDone: false, 
-    //     targetMileage: 95000, 
-    //     actualMileage: undefined, 
-    //     targetDate: null,
-    //     description: 'Синтетика 5W-30',
-    //     carId: '1',
-    //     userEmail: 'test@ya.ru'
-    // },
-    // { 
-    //     id: 2, 
-    //     text: 'Проверить тормоза', 
-    //     isDone: true, 
-    //     targetMileage: 30000, 
-    //     actualMileage: undefined, 
-    //     targetDate: null,
-    //     description: 'Передние колодки',
-    //     carId: '1',
-    //     userEmail: 'test@ya.ru' 
-    // }
-]
+let mockDatabase: Task[] = [];
 
 export const fetchTasksApi = createApi({
    baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}` }),

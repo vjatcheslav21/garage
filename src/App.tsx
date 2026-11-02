@@ -14,10 +14,14 @@ function App() {
   const cars = useAppSelector(state => state.cars.cars);
   const theme = useAppSelector(state => state.user.themeColor);
 
-    useEffect(() => {
-        document.documentElement.dataset.theme = theme;
-        localStorage.setItem('theme', theme);
-    }, [ theme ]);
+  useEffect(() => {
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem('theme', theme);
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeColorMeta) {
+          themeColorMeta.setAttribute('content', theme === 'dark' ? '#001232' : '#f4f3ec');
+      }
+  }, [ theme ]);
 
   return (
     <>
