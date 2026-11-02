@@ -3,7 +3,7 @@ import { cn } from '@/shared/lib/clsx';
 import styles from './Button.module.scss';
 import type { ReactNode } from 'react';
 
-type VariantButton = 'save' | 'cancel' | 'checkbox' | 'default';
+type VariantButton = 'save' | 'cancel' | 'checkbox' | 'default' | 'light';
 interface ButtonProps {
     child: ReactNode;
     className?: string;
@@ -21,7 +21,8 @@ export const Button = ({child, className, ariaLabelledby, type, variant, onClick
             className={cn(styles.btn, className,
                 variant === 'save' && styles.btn_save, 
                 variant === 'cancel' && styles.btn_cancel,
-                variant === 'checkbox' && styles.btn_checkbox)}
+                variant === 'checkbox' && styles.btn_checkbox,
+                variant === 'light' && styles.btn_light)}
             type={type}
             onClick={onClick}
             disabled={disabled}>

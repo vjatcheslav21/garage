@@ -26,6 +26,7 @@
     &_list {
         margin-top: 15px;
         position: relative;
+        min-width: 230px;
         &_title {
             @include text-h3;
             text-align: center;

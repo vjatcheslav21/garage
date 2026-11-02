@@ -28,6 +28,10 @@
         color: var(--btn-checkbox-color);
         background-color: var(--btn-checkbox);
     }
+    &_light {
+        color: var(--btn-text-color-theme);
+        background-color: var(--btn-text-bg-theme);
+    }
     &:not(:disabled):hover {
         transform: scale(1.05);
     }

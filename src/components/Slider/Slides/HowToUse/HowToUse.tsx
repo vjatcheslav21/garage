@@ -20,6 +20,7 @@ export const HowToUse = ({onClickFinal}: HowToUseProps) => {
                 child={"Поехали"} 
                 ariaLabelledby={"Сохранить данные"} 
                 type={"button"}
+                variant="light"
                 onClick={onClickFinal}/>
         </div>
     )

@@ -10,9 +10,9 @@ interface AuthPageProps {
 export const AuthPage = ({initialTab}: AuthPageProps) => {
 
     return (
-        <div className={styles['auth']}>
-            <div className={styles['auth_wrapper']}>
-                <p>Приветсвенный экран</p>
+        <div className={styles.auth}>
+            <div className={styles.auth_wrapper}>
+                <h2 className={styles.auth_title}>Гараж — твой личный <br></br> планировщик ТО для авто</h2>
                 {initialTab === 'login' ? 
                     <Login/>
                     :

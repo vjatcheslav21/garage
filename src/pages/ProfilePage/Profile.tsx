@@ -72,7 +72,7 @@ export const Profile = () => {
                         description="Как определять срок ТО"
                         onSave={handleSave}
                         onOpen={handleOpen}                            >
-                            <ToggleDimension/>
+                        <ToggleDimension/>
                     </Dropdown>
                 </div> 
             </div> 
@@ -83,6 +83,7 @@ export const Profile = () => {
                     child={"Выйти из аккаунта"} 
                     ariaLabelledby={"Кнопка 'выйти из аккаунта'"} 
                     type={"button"} 
+                    variant="light"
                     onClick={logoutUser}
                     />  
             </div>     

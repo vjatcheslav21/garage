@@ -5,7 +5,7 @@ interface InputRadioProps<T extends string> {
   onChange: (value: T) => void;
 }
 
-export const InputRadio = <T extends string>({ value, onChange }: InputRadioProps<T>) => {
+export const InputRadio = <T extends string>({ value, onChange, }: InputRadioProps<T>) => {
   return (
     <div className={styles.input_radio_wrapper}>
       <label className={styles.label}>

@@ -1,4 +1,3 @@
-import { parseMileage } from "@/shared/lib";
 import { Button, ErrorMessage, Input } from "@/shared/ui";
 import { useAppSelector } from "@/storage/hooks";
 import { useState } from "react";
@@ -25,7 +24,7 @@ export const AddCar = ({onSubmit, btnText}: AddCarProps) => {
             return
         }
 
-        let mileage;
+        let mileage = 0;
         if (dimension === 'mileage') {
             const mileageResult = validateMileage(carMileage);
             if (mileageResult.error) {
@@ -36,7 +35,7 @@ export const AddCar = ({onSubmit, btnText}: AddCarProps) => {
         }
 
         setError(null);
-        onSubmit({ name: carName, mileage: parseMileage(carMileage)});
+        onSubmit({ name: nameResult.value, mileage});
         setCarMileage('');
         setCarName('');
     }
@@ -77,6 +76,7 @@ export const AddCar = ({onSubmit, btnText}: AddCarProps) => {
                 child={btnText} 
                 ariaLabelledby={"кнопка 'Сохранить данные автомобиля'"} 
                 type={"submit"} 
+                variant='default'
                 className={styles.form_btn}
                 disabled={carName === '' || (dimension === 'mileage' && carMileage === '')}
                 />

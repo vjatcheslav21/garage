@@ -83,6 +83,7 @@ export const SignUp = () => {
                 child={requestStatus !== 'Loading' ? "Отправить" : "Загрузка"} 
                 ariaLabelledby={"кнопка 'Войти в аккаунт'"} 
                 type={"submit"}
+                variant="light"
                 className={styles['btn__form-sign-up']}
                 disabled={requestStatus === 'Loading'}
                 />

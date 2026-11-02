@@ -15,4 +15,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    &_label {
+        color: var(--label-color-intro);
+    }
 }

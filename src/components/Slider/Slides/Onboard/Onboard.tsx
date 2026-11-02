@@ -22,6 +22,7 @@ export const Onboard = ({name, onClickNext}: OnboardProp) => {
                 child={"Дальше"} 
                 ariaLabelledby={"Открыть следующий слайд"} 
                 type={"button"} 
+                variant="light"
                 onClick={onClickNext}/>
         </div>
     )

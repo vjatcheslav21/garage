@@ -41,12 +41,17 @@
   --link-hover: rgb(58 58 74 / 50%);
   --link-hover-light: rgba(47, 48, 58, 0.5);
   --nav-link-hover: rgb(58 58 74 / 50%);
-  
+
   --btn-bg: #3a3a4a;
   --btn-bg-hover: #3a3a4acf;
   
+  --btn-text-color-theme: var(--text-btn);
+  --btn-text-bg-theme: var(--btn-bg);
+  
   --btn-checkbox: #3a3a4a;
   --btn-checkbox-color: #fff;
+
+  --label-color: #3a3a4a;
 
   --border-slide: #3a3a4a;
   --bg-active-slide: #3a3a4a;
@@ -102,6 +107,12 @@
   
   --btn-checkbox: #d0d0d0;
   --btn-checkbox-color: #333;
+
+  --btn-text-color-theme: #333;
+  --btn-text-bg-theme: #e2e4e8;
+
+  --label-color: var(--text-modal);
+  --label-color-intro: #f4f3ec;
 
   --border-slide: #ccc;
   --bg-active-slide: #ccc;

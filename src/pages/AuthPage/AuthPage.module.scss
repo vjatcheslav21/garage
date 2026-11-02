@@ -1,4 +1,6 @@
 @use '../../shared/styles/variables' as *;
+@use '../../shared/styles/mixins' as *; 
+
 .auth {
     display: flex;
     flex-direction: column;
@@ -14,6 +16,9 @@
             place-self: center;
             gap: 15px;
         }
+    }
+    &_title {
+        @include text-h2;
     }
     &_p {
         text-align: end; 
