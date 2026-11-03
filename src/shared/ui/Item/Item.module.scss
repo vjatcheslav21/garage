@@ -2,7 +2,7 @@
 
 .item {
     display: flex;
-    place-items: center;
+    justify-content: center;
     gap: 10px;
     transition: background-color 0.2s ease;
     padding: 10px 5px;
@@ -21,6 +21,9 @@
     &_btn {
         width: 20px;
         height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         align-self: flex-start;
         padding: 0;
         font-size: 20px;

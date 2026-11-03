@@ -19,8 +19,8 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        align-items: flex-start;
         gap: 20px;
-        align-items: start;
     }
     
     &_list {
@@ -30,6 +30,12 @@
         &_title {
             @include text-h3;
             text-align: center;
+            @media(width <= 425px) {
+                text-align: left;
+            }
+        }
+        @media(width <= 425px) {
+            width: 100%;
         }
     }
 }
