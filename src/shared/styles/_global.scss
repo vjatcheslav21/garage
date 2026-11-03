@@ -21,8 +21,8 @@
   --text-task-desc: rgb(58 58 74 / 50%);
   --text-task-waiting: var(--text-task-desc);
   --text-desc: rgb(58 58 74 / 50%);
-  // --text-desc-dropdown: #1a1a25;
   --text-desc-dropdown: #3a3a4a;
+  --text-desc-dropdown-theme: #3a3a4a;
   
   --text-btn: #fff;
   --text-error: tomato;
@@ -90,6 +90,8 @@
   --text-task-desc: rgb(244 243 236 / 50%);
   --text-task-waiting: var(--text-task-desc);
   --text-desc: #ccc;
+  --text-desc-dropdown: #3a3a4a;
+  --text-desc-dropdown-intro: #f4f3ec;
   
   // --bg-modal: #001232;
   --bg-modal: var(--accent-bg);

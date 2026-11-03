@@ -60,9 +60,6 @@ export const Mileage = ({mileage, onUpdate}: MileageProps) => {
                 {error && <ErrorMessage error={error}/>}
             </Dropdown>
         </div>
-            <div className={styles.ticks}></div>
-            <section className={styles.spacer}></section>
-        </>
-            
+        </>    
     )
 }

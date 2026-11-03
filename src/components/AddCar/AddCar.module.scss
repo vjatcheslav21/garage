@@ -1,7 +1,7 @@
 .form {
     display: grid;
     gap: 10px;
-    &_label {
-        color: var(--text-desc-dropdown);
+    label {
+        color: var(--text-desc-dropdown-intro);
     }
 }

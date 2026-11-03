@@ -96,6 +96,19 @@ const carSlice = createSlice({
             state.cars = [];
             state.carSelected = null;
         },
+        deleteCar: (state, action: PayloadAction<{ id: string }>) => {
+            const carIdToDelete = action.payload.id;
+            state.cars = state.cars.filter(car => car.id !== carIdToDelete);
+            if (state.carSelected?.id === carIdToDelete) {
+                state.carSelected = state.cars[0] || null;
+                if (state.carSelected) {
+                    localStorage.setItem(getUserSelectedCarKey(), state.carSelected.id);
+                } else {
+                    localStorage.removeItem(getUserSelectedCarKey());
+                }
+            }
+            localStorage.setItem(getUserCarsKey(), JSON.stringify(state.cars));
+        }
     },
     extraReducers: (builder) => {
         builder 
@@ -124,5 +137,5 @@ const carSlice = createSlice({
     }
 })
 
-export const { editCar, selectCar, editCarName, loadCarsForCurrentUser, clearCarsState } = carSlice.actions;
+export const { editCar, selectCar, editCarName, deleteCar, loadCarsForCurrentUser, clearCarsState } = carSlice.actions;
 export default carSlice.reducer;

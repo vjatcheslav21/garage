@@ -67,7 +67,7 @@ export const AddCar = ({onSubmit, btnText}: AddCarProps) => {
                     type="text"
                     id="carMileage"
                     value={carMileage} 
-                    placeholder="Введите актуальный пробег" 
+                    placeholder="Введите пробег" 
                     onChange={handleMileageChange}/>
                 </>
             )}

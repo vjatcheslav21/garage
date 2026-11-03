@@ -5,4 +5,9 @@
     flex-direction: column;
     gap: 10px;
     --label-color: var(--text);
+    --btn-bg: var(--btn-text-bg-theme);
+    --text-btn: var(--btn-text-color-theme);
+    form {
+        --label-color: var(--text-desc-dropdown-intro);
+    }
 }

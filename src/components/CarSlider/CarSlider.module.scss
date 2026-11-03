@@ -12,6 +12,7 @@
     align-items: center;
     gap: 20px;
     position: relative;
+    --text-desc-dropdown-intro: var(--text-desc-dropdown);
 }
 
 :global(.swiper) {

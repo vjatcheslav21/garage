@@ -3,9 +3,9 @@ import styles from './Profile.module.scss';
 import { Button, Input, ToggleDimension, ToggleTheme } from "@/shared/ui";
 import { useState } from "react";
 import type { TUser } from "@/shared/types/types";
-import { userLogin, userLogout } from "@/storage/slices/userSlice";
+import { updateProfile, userLogout } from "@/storage/slices/userSlice";
 import { Dropdown } from "@/components";
-import { clearCarsState } from "@/storage/slices/carSlice";
+import { clearCarsState, loadCarsForCurrentUser } from "@/storage/slices/carSlice";
 import { fetchTasksApi } from "@/storage/utils/taskApi";
 
 export const Profile = () => {
@@ -13,16 +13,30 @@ export const Profile = () => {
     const [userData, setUserData] = useState<TUser>(user || {email: '', name: ''});
     const dispatch = useAppDispatch();
 
-    const handleOpen = () => {
-        const updatedUser = {...user, ...userData};
-        setUserData(updatedUser)
+    // const handleOpen = () => {
+    //     const updatedUser = {...user, ...userData};
+    //     setUserData(updatedUser)
+    // }
+    const handleOpen = () => { if (user) setUserData(user); }
+    // const handleSave = () => {
+    //     const updatedUser = {...user, ...userData};
+    //     dispatch(userLogin(updatedUser));
+    //     localStorage.setItem('user', JSON.stringify(updatedUser));
+    //     return true
+    // }
+
+    const handleSaveEmail = () => {
+        dispatch(updateProfile({ name: user!.name, email: userData.email }));
+        dispatch(loadCarsForCurrentUser());
+        dispatch(fetchTasksApi.util.resetApiState());
+        return true;
     }
 
-    const handleSave = () => {
-        const updatedUser = {...user, ...userData};
-        dispatch(userLogin(updatedUser));
-        localStorage.setItem('user', JSON.stringify(updatedUser));
-        return true
+    const handleSaveName = () => {
+        dispatch(updateProfile({ email: user!.email, name: userData.name }));
+        dispatch(loadCarsForCurrentUser());
+        dispatch(fetchTasksApi.util.resetApiState());
+        return true;
     }
 
     const logoutUser = () => {
@@ -40,7 +54,7 @@ export const Profile = () => {
                             title={`Ваш email: ${user?.email}`}
                             ariaLabelledBy="Кнопка 'изменить email'"
                             description="Изменить email"
-                            onSave={handleSave}
+                            onSave={handleSaveEmail}
                             onOpen={handleOpen}
                             >
                             <Input
@@ -55,7 +69,7 @@ export const Profile = () => {
                             title={`Ваше имя: ${user?.name}`}
                             ariaLabelledBy="Кнопка 'изменить имя'"
                             description="Изменить имя"
-                            onSave={handleSave}
+                            onSave={handleSaveName}
                             onOpen={handleOpen} 
                             >
                             <Input
@@ -70,7 +84,7 @@ export const Profile = () => {
                         title={`Настроить критерий ТО`}
                         ariaLabelledBy="Выбарть 'дата' или 'время'"
                         description="Как определять срок ТО"
-                        onSave={handleSave}
+                        onSave={() => true}
                         onOpen={handleOpen}                            >
                         <ToggleDimension/>
                     </Dropdown>

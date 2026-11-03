@@ -44,14 +44,14 @@ export const EditableCarName = ({ car }: EditableCarNameProps) => {
             placeholder='Название авто'
             autoFocus/>
         :
-            <Input 
-                value={editName}
-                onChange={handleNameChange}
-                variant='inline-slider'
-                onBlur={handleNameBlur}
-                placeholder='Название авто'
-                autoFocus/>
-            }
+        <Input 
+            value={editName}
+            onChange={handleNameChange}
+            variant='inline-slider'
+            onBlur={handleNameBlur}
+            placeholder='Название авто'
+            autoFocus/>
+        }
         </>
     );
 }

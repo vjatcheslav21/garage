@@ -2,7 +2,36 @@ import type { Task } from "@/shared/types/types";
 import { BASE_URL } from "@/storage/utils/api";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-let mockDatabase: Task[] = [];
+const getInitialTasks = (): Task[] => {
+    const stored = localStorage.getItem('tasks');
+    if (stored) {
+        try {
+            return JSON.parse(stored);
+        }
+        catch {
+            return [];
+        }
+    }
+    return [
+        {
+            id: 1, 
+            text: 'Поменять масло', 
+            isDone: false, 
+            targetMileage: 95000, 
+            actualMileage: undefined, 
+            targetDate: null,
+            description: 'Синтетика 5W-30',
+            carId: '1',
+            userEmail: 'test@ya.ru'
+        }
+    ]
+}
+
+let mockDatabase: Task[] = getInitialTasks();
+
+const saveTasksToStorage = () => {
+    localStorage.setItem('tasks', JSON.stringify(mockDatabase));
+}
 
 export const fetchTasksApi = createApi({
    baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}` }),
@@ -40,6 +69,7 @@ export const fetchTasksApi = createApi({
                 userEmail
             };
             mockDatabase = [...mockDatabase, createdTask];
+            saveTasksToStorage();
             return { data: createdTask };
         },
         invalidatesTags: ['Tasks'],
@@ -51,6 +81,7 @@ export const fetchTasksApi = createApi({
             const state = getState() as any;
             const userEmail = state.user.user?.email;
             mockDatabase = mockDatabase.filter((task) => !(task.id === id && task.userEmail === userEmail));
+            saveTasksToStorage();
             return {data: undefined}
         },
         invalidatesTags: ['Tasks'],
@@ -68,6 +99,7 @@ export const fetchTasksApi = createApi({
                 return task
             })
             const updated = mockDatabase.find(t => t.id === updatedData.id);
+            saveTasksToStorage();
             return {data: updated!}
         },
         invalidatesTags: ['Tasks'],

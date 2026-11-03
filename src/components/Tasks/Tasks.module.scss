@@ -2,7 +2,7 @@
 
 .tasks {
     padding: 30px;
-    place-items: center;
+    justify-items: center;
     min-height: min-content;
     @media (width <= 1024px) {
       padding: 20px;
