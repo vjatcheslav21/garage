@@ -13,17 +13,7 @@ export const Profile = () => {
     const [userData, setUserData] = useState<TUser>(user || {email: '', name: ''});
     const dispatch = useAppDispatch();
 
-    // const handleOpen = () => {
-    //     const updatedUser = {...user, ...userData};
-    //     setUserData(updatedUser)
-    // }
     const handleOpen = () => { if (user) setUserData(user); }
-    // const handleSave = () => {
-    //     const updatedUser = {...user, ...userData};
-    //     dispatch(userLogin(updatedUser));
-    //     localStorage.setItem('user', JSON.stringify(updatedUser));
-    //     return true
-    // }
 
     const handleSaveEmail = () => {
         dispatch(updateProfile({ name: user!.name, email: userData.email }));
@@ -76,7 +66,7 @@ export const Profile = () => {
                                 value={userData.name}
                                 onChange={(value) => setUserData({...userData, name: value})}
                                 type="string"
-                                placeholder="Укажите name"
+                                placeholder="Укажите имя"
                                 />
                         {/* {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>} */}
                     </Dropdown>
