@@ -53,16 +53,14 @@ export const Item = memo(({
                 type='button' 
                 className={cn(styles.item_btn, styles['item_btn-check'])}
                 variant="checkbox"
-                onClick={
-                onToggle
-            }/>
-
+                onClick={onToggle}
+                disabled={isDone}
+            />
             <TaskContent 
                 task={task} 
                 currentMileage={currentMileage} 
                 onOpenModal={handleOpenTask}
-                />
-
+            />
             <div className={styles.action_menu_container} ref={menuRef}>
                 <button 
                     className={styles.dots_btn}
@@ -95,15 +93,17 @@ export const Item = memo(({
                     </div>
                 )}
             </div>
-            {isEditing ? <EditTaskForm 
-                isDone={task.isDone}
-                initialText={task.text} 
-                initialDescription={task.description} 
-                initialMileage={task.targetMileage}
-                initialDate={task.targetDate ? new Date(task.targetDate) : null}
-                onSave={(text, desc, mileage, date) => onSave(text, desc, mileage, date)}
-                onCancel={onCancel} 
-            /> : null }
+            { isEditing ? 
+                <EditTaskForm 
+                    isDone={task.isDone}
+                    initialText={task.text} 
+                    initialDescription={task.description} 
+                    initialMileage={task.targetMileage}
+                    initialDate={task.targetDate ? new Date(task.targetDate) : null}
+                    onSave={(text, desc, mileage, date) => onSave(text, desc, mileage, date)}
+                    onCancel={onCancel} 
+                /> : null 
+            }
         </div>
     )
 })

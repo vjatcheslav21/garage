@@ -10,23 +10,32 @@
     @media (width <= 1024px) {
       padding: 20px;
     }
-
-    &_title {
-        @include text-h2;
+    @media (width <= 576px) {
+      padding: 20px 0px;
     }
-    
-    &_wrapper { 
+    &__head {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        &_title {
+            @include text-h2;
+        }
+    }
+    &__wrapper { 
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items: flex-start;
         gap: 20px;
+        @media (width <= 576px) {
+            gap: 0;
+        }
     }
-    
-    &_list {
+    &__list {
         margin-top: 15px;
         position: relative;
-        min-width: 230px;
+        min-width: 300px;
         &_title {
             @include text-h3;
             text-align: center;

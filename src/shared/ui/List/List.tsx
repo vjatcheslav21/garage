@@ -31,7 +31,7 @@ export const List = ({
                         task={task}
                         variant={variant}
                         onOpenModal={() => onOpenModal(task.id)}
-                        onToggle={() => onToggleTask(task.id)}
+                        onToggle={() => onToggleTask?.(task.id)}
                         onDelete={() => onDeleteTask(task.id)}
                         onStartEdit={() => onStartEdit(task.id)}
                         onSave={(text, descr, mileage, date) => onSaveEdit(task.id, text, descr, mileage, date)}

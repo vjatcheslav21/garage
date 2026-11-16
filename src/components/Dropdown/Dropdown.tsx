@@ -76,8 +76,8 @@ export const Dropdown = ({
         if (hideSaveButton) return null;
         return (descriptionIcon || dateOrMileageIcon) 
             ?
-            <div className={styles['dropdown_menu-wrapper']}>
-                <div className={styles['dropdown_menu-icons']}>
+            <div className={styles['dropdown__menu-wrapper']}>
+                <div className={styles['dropdown__menu-icons']}>
                     <div>{descriptionIcon}</div>
                     <div>{dateOrMileageIcon}</div>
                 </div>
@@ -91,7 +91,7 @@ export const Dropdown = ({
             </div>
             : 
             <Button 
-                className={styles['dropdown_menu-btn']}
+                className={styles['dropdown__menu-btn']}
                 ariaLabelledby={'сохранить'} 
                 variant="save"
                 child={'Сохранить'} 
@@ -101,16 +101,16 @@ export const Dropdown = ({
     }
 
     return (
-        <div className={cn(styles['dropdown_container'], isOpen && styles.active)} ref={dropdownRef}>
-            <div className={styles['trigger_area']} onClick={toggle}>
+        <div className={cn(styles['dropdown__container'], isOpen && styles.active)} ref={dropdownRef}>
+            <div className={styles['trigger__area']} onClick={toggle}>
                 <span className={styles['title']}>{title}</span>
                 <Plus
                     isOpen={isOpen} 
                     ariaLabelledBy={ariaLabelledBy} 
                 />
             </div>
-            <div className={cn(styles['dropdown_menu'], isOpen && styles.open)}>
-                <p className={styles['dropdown_menu-descr']}>{description}</p>
+            <div className={cn(styles['dropdown__menu'], isOpen && styles.open)}>
+                <p className={styles['dropdown__menu-descr']}>{description}</p>
                 {children} 
                 {renderSaveButton()}
              </div>

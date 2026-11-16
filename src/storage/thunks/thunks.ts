@@ -26,15 +26,15 @@ export const fetchUser = createAsyncThunk<TUser, UserLogin>('user/login', async 
 
     return { 
             token: newToken,
-            name: 'Test User', 
-            email: loginData.email 
+            name: foundUser.name, 
+            email: foundUser.email 
         }; 
 }) 
 
 export const registerUser = createAsyncThunk<TUser, UserRegistration>(
     'user/registration', 
     async (registrationData) => {
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 0));
         
         const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
         if (existingUsers.some((u: any) => u.email === registrationData.email)) {
@@ -58,7 +58,7 @@ export const registerUser = createAsyncThunk<TUser, UserRegistration>(
 )
 
 export const fetchCar = createAsyncThunk<Car, BasicCarInfo>('car/create', async (carData) => {
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 0));
     return {
               name: carData.name,
               id: generateId(),

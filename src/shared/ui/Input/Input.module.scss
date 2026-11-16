@@ -85,7 +85,8 @@ input[type="radio"] {
     }
 }
 .inline-slider {
-    place-items: center;
+    display: flex;
+    justify-items: center;
     margin: 0;
     background: transparent;
     border: none;

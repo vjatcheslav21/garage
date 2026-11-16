@@ -42,7 +42,7 @@ export const fetchTasksApi = createApi({
     // }),
     getTasks: build.query<Task[], void>({
         queryFn: async (_arg, { getState }) => {
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 0));
             const state = getState() as any;
             const userEmail = state.user.user?.email;
             const userTasks = mockDatabase.filter(t => t.userEmail === userEmail);
@@ -54,7 +54,7 @@ export const fetchTasksApi = createApi({
         queryFn: async (partialTask: Partial<Task>, { getState }) => {
             // const response = await fetch('/tasks', { method: 'POST', body: JSON.stringify(newTaskData) });
             // const data = await response.json();
-            await new Promise((resolve) => setTimeout(resolve, 800));
+            await new Promise((resolve) => setTimeout(resolve, 0));
             const state = getState() as any;
             const userEmail = state.user.user?.email || '';
             const createdTask: Task = {
@@ -77,7 +77,7 @@ export const fetchTasksApi = createApi({
     deleteTask: build.mutation<void, number>({
         // query: (updatedData) => ({ url: `tasks/${updatedData.id}`, method: 'PATCH', body: updatedData })
         queryFn: async (id, { getState }) => {
-            await new Promise((resolve) => setTimeout(resolve, 500));
+            await new Promise((resolve) => setTimeout(resolve, 0));
             const state = getState() as any;
             const userEmail = state.user.user?.email;
             mockDatabase = mockDatabase.filter((task) => !(task.id === id && task.userEmail === userEmail));

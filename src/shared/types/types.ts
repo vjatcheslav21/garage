@@ -16,7 +16,7 @@ export interface ListProps {
     items: Task[];
     variant: TaskStatus;
     onOpenModal: (id: number) => void;
-    onToggleTask: (id: number) => void;
+    onToggleTask?: (id: number) => void ;
     onDeleteTask: (id: number) => void;
     onStartEdit: (id: number) => void;
     onSaveEdit: (id: number, text: string, desc: string, mileage: number, date: Date|null) => void;

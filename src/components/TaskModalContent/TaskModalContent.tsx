@@ -1,18 +1,21 @@
 import type { Task } from '@/shared/types/types';
 import styles from './TaskModalContent.module.scss';
-import { CalendarIcon, DescrIcon, ErrorMessage, Input, MileageIcon } from '@/shared/ui';
+import { Button, CalendarIcon, DescrIcon, ErrorMessage, Input, MileageIcon } from '@/shared/ui';
 import { useState } from 'react';
 import { InputDate } from '@/shared/ui/Input/InputDate';
 import { parseMileage, validateMileage, validateName } from '@/shared/lib';
 import { format } from 'date-fns';
+import { useAppDispatch } from '@/storage/hooks';
+import { setPrefillTaskData } from '@/storage/slices/uiSlice';
 
 interface TaskModalContentProps {
     task: Task;
-    onOpenModal: () => void;
     onUpdateField: (data: Partial<Task>) => void;
+    onToggleTask: (id: number) => void;
+    onClose: () => void;
 }
 
-export const TaskModalContent = ({task, onOpenModal, onUpdateField}: TaskModalContentProps) => {
+export const TaskModalContent = ({task, onUpdateField, onToggleTask, onClose}: TaskModalContentProps) => {
     const [editText, setEditText] = useState(task.text);
     const [editDesc, setEditDesc] = useState(task.description || "");
     const [editMileage, setEditMileage] = useState(task.targetMileage);
@@ -20,6 +23,7 @@ export const TaskModalContent = ({task, onOpenModal, onUpdateField}: TaskModalCo
         task.targetDate ? new Date(task.targetDate) : null 
     );
     const [error, setError] = useState<string | null>(null);
+    const dispatch = useAppDispatch();
 
 
     const handleTextChange = (value: string) => {
@@ -66,13 +70,25 @@ export const TaskModalContent = ({task, onOpenModal, onUpdateField}: TaskModalCo
         onUpdateField({ targetDate: date ? format(date, 'yyyy-MM-dd') : null })
     }
 
+    const handleRepeat = () => {
+          dispatch(setPrefillTaskData({ text: editText, description: editDesc }))
+          onClose();
+        }
+
+    const handleToggleTask = () => {
+        onToggleTask(task.id);
+        onClose();
+    }
+
     return(
-        <div className={styles.modal__content} onClick={onOpenModal}>
+        <>
+        <div className={styles.modal__content}>
             <h2>
                 <Input 
+                    className={styles['modal__content_input']}
                     value={editText} 
                     onChange={handleTextChange} 
-                    variant='inline' 
+                    variant={task.isDone ? 'disabled': 'inline'} 
                     onBlur={handleTextBlur}
                     placeholder='Введите название задачи'/>
             </h2>
@@ -83,7 +99,8 @@ export const TaskModalContent = ({task, onOpenModal, onUpdateField}: TaskModalCo
                         value={editDesc} 
                         onChange={setEditDesc} 
                         onBlur={() => onUpdateField({description: editDesc})}
-                        variant='inline' 
+                        // variant='inline' 
+                        variant={task.isDone ? 'disabled': 'inline'} 
                         placeholder='Добавить описание'
                         />
                 </div> 
@@ -92,7 +109,8 @@ export const TaskModalContent = ({task, onOpenModal, onUpdateField}: TaskModalCo
                     <InputDate 
                         selectedDate={editDate} 
                         onChangeDate={handleDateChange} 
-                        variant='inline'
+                        // variant='inline'
+                        variant={task.isDone ? 'disabled': 'inline'} 
                         placeholder='Добавить дату'/>
                 </div>
                 <div className={styles.modal__content_wrap}>
@@ -101,11 +119,32 @@ export const TaskModalContent = ({task, onOpenModal, onUpdateField}: TaskModalCo
                         value={String(editMileage)} 
                         onChange={handleMileageChange}
                         onBlur={handleMileageBlur} 
-                        variant='inline'
+                        // variant='inline'
+                        variant={task.isDone ? 'disabled': 'inline'} 
                         placeholder='Указать пробег'/>
                 </div>
                 {error && <ErrorMessage error={error}/>}
             </div>
+            {task.isDone ? 
+                <Button 
+                child={'Повторить задачу'} 
+                className={styles['modal__content_btn']}
+                ariaLabelledby={'Отметить задачу как выполненную'} 
+                type={'button'} 
+                onClick={handleRepeat}
+                />
+                :
+                <Button 
+                child={'Задача выполнена'} 
+                className={styles['modal__content_btn']}
+                ariaLabelledby={'Отметить задачу как выполненную'} 
+                type={'button'} 
+                onClick={handleToggleTask}
+                />
+            }
+            
         </div>
+            
+        </>
     )
 }

@@ -36,7 +36,7 @@ export const Profile = () => {
     }
 
     return(
-        <div className={styles['profile']}>
+        <main className={styles['profile']}>
             <h2 className={styles['prodile_title']}>Ваши данные</h2>
             <div className={styles['profile__info']}>
                 <div className={styles['profile__info_user']}>
@@ -53,7 +53,6 @@ export const Profile = () => {
                                 type="string"
                                 placeholder="Укажите email"
                                 />
-                        {/* {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>} */}
                     </Dropdown>
                     <Dropdown 
                             title={`Ваше имя: ${user?.name}`}
@@ -68,7 +67,6 @@ export const Profile = () => {
                                 type="string"
                                 placeholder="Укажите имя"
                                 />
-                        {/* {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>} */}
                     </Dropdown>
                     <Dropdown 
                         title={`Настроить критерий ТО`}
@@ -91,6 +89,6 @@ export const Profile = () => {
                     onClick={logoutUser}
                     />  
             </div>     
-        </div>
+        </main>
     )
 }

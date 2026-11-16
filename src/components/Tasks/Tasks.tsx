@@ -77,7 +77,7 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
   const handleCancelEdit = () => {
     setEditingTaskId(null);
   };
-  
+
   const handleToggleTask = (id: number) => {
     if (editingTaskId === id) return;
     const task = data?.find(t => t.id === id);
@@ -107,8 +107,10 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
 
   return (
     <div className={styles.tasks}>
-        <h2 className={styles.tasks_title}>Планировщик ТО</h2>
-        <AddTaskDropdown onAddTask={handleAddTask} />
+        <div className={styles.tasks__head}>
+          <h2 className={styles.tasks__head_title}>Планировщик ТО</h2>
+          <AddTaskDropdown onAddTask={handleAddTask} />
+        </div>
         {isError 
           ? 
           'Ошибка' 
@@ -117,9 +119,9 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
           ? 
           'Загрузка' 
           :
-          <div className={styles.tasks_wrapper}>
-            <div className={styles.tasks_list}>
-                <h2 className={styles.tasks_list_title}>Запланировано</h2>
+          <div className={styles.tasks__wrapper}>
+            <div className={styles.tasks__list}>
+                <h2 className={styles.tasks__list_title}>Запланировано</h2>
                 <List 
                   items={inWorkTasks}
                   variant="inWork"
@@ -133,13 +135,12 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
                   currentMileage={currentMileage}       
                 />
             </div>
-          <div className={styles.tasks_list}>
-              <h2 className={styles.tasks_list_title}>Выполнено</h2>
+          <div className={styles.tasks__list}>
+              <h2 className={styles.tasks__list_title}>Выполнено</h2>
               <List 
                   items={isDoneTasks}
                   variant="isDone"
                   onOpenModal={handleOpenModal}
-                  onToggleTask={handleToggleTask}
                   onDeleteTask={handleDeleteTask}
                   onStartEdit={handleStartEdit}
                   onSaveEdit={handleSaveEdit}
@@ -153,11 +154,11 @@ export const Tasks = ({ currentMileage }: TasksProps) => {
           {activeTask && (
             <TaskModal onClose={handleCloseModal}>
               <TaskModalContent 
-                task={activeTask} 
-                onOpenModal={() => { } } 
+                task={activeTask}
+                onClose={handleCloseModal}
                 onUpdateField={handleUpdateField}
-                />
-            </TaskModal>
+                onToggleTask={handleToggleTask}/>
+              </TaskModal>
           )}
     </div>
   );

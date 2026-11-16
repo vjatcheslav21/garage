@@ -1,19 +1,20 @@
 @use '../../shared/styles/variables' as *;
 
-.dropdown_container {
+.dropdown__container {
   position: relative;
   z-index: 1;
   transition: z-index 0s .05s;
 }
 
-.dropdown_container.active {
+.dropdown__container.active {
   z-index: 10;
   transition: z-index 0s;
 }
 
-.trigger_area {
+.trigger__area {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   cursor: pointer;
   .title {
@@ -32,7 +33,7 @@
 }
 
 
-.dropdown_menu {
+.dropdown__menu {
   position: absolute;
   top: calc(100% + 10px);
   left: 0;

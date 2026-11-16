@@ -13,15 +13,20 @@ interface TaskContentProp {
 export const TaskContent = ({task, currentMileage, onOpenModal}: TaskContentProp) => {
     const dimension = useAppSelector(state => state.user.selectDimension);
     const isDone = task.isDone;
-    
     let statusText = '';
     let statusClass = '';
-
-    if (isDone) {
     const displayMileage = task.actualMileage ?? task.targetMileage;
-        statusText = `Выполнено на ${displayMileage.toLocaleString('ru-RU')} км ${format(new Date(), 'dd.MM.yyyy')}`;
+    if (isDone) {
+        const withoutMileage = displayMileage === 0 
+            ? 
+        `Выполнено ${format(new Date(), 'dd.MM.yyyy')}` 
+        : 
+        `Выполнено на ${displayMileage.toLocaleString('ru-RU')} км`
+        ;
+        statusText = dimension === 'mileage' ? withoutMileage : `Выполнено ${format(new Date(), 'dd.MM.yyyy')}`;
         statusClass = styles.status_done;
-    } else if (dimension === 'date' && task.targetDate) {
+    }
+    else if (dimension === 'date' && task.targetDate) {
         const taskDate = new Date(task.targetDate);
         const today = new Date();
         if (taskDate < today) {
@@ -31,7 +36,8 @@ export const TaskContent = ({task, currentMileage, onOpenModal}: TaskContentProp
             statusText = `до ${format(taskDate, 'dd.MM.yyyy')}`;
             statusClass = styles.status_waiting;
         }
-    } else {
+    }
+    else if (task.targetMileage > 0) {
         const remainingKm = task.targetMileage - currentMileage;
         if (remainingKm <= 0) {
             statusText = `Просрочено на ${Math.abs(remainingKm).toLocaleString('ru-RU')} км!`;
@@ -41,11 +47,25 @@ export const TaskContent = ({task, currentMileage, onOpenModal}: TaskContentProp
             statusClass = styles.status_waiting;
         }    
     }
+    else if (task.targetDate) {
+        const taskDate = new Date(task.targetDate);
+        const today = new Date();
+        if (taskDate < today) {
+            statusText = `Просрочено (до ${format(taskDate, 'dd.MM.yyyy')})`;
+            statusClass = styles.status_overdue;
+        } else {
+            statusText = `до ${format(taskDate, 'dd.MM.yyyy')}`;
+            statusClass = styles.status_waiting;
+        }
+    }
+    else {
+        statusText = 'Без срока';
+        statusClass = styles.status_waiting;
+    }
 
     return (
         <>
             <div className={styles.item__content} onClick={onOpenModal}> 
-                {/* <span className={styles.item__content_label}>Задача:</span> */}
                 <li className={cn(styles.item__content_text, isDone && styles.item_done)}>{task.text}</li>
                 {task.description &&(
                     <p className={styles.item__content_description}>{task.description}</p>)}

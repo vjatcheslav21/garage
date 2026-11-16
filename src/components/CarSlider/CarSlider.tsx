@@ -39,50 +39,58 @@ export const CarSlider = () => {
     },[carSelected, cars]);
     
     return (
+        <>
         <div className={styles.wrapper}>
-            <h2 className={styles.car_title}>Ваши авто</h2>
-            <Swiper
-                modules={[Navigation]}
-                navigation
-                spaceBetween={10}
-                slidesPerView={'auto'}
-                centeredSlidesBounds={true}
-                centerInsufficientSlides={true}
-                centeredSlides
-                onSwiper={(swiper) => { swiperRef.current = swiper; }}
-                breakpoints={{
-                    0: { slidesPerView: 'auto' },
-                    768: { slidesPerView: 'auto' }
-                }}
-            >
-                {cars.map((car, index) => {
-                    const isSelected = car.id === carSelected?.id;
-                    
-                    return (
-                        <SwiperSlide 
-                            key={car.id}
-                            onClick={() => handleSelectCar(car.id, index)}
-                        >
-                            <div className={cn(
-                                styles.slide,
-                                isSelected && styles.slide_active
-                            )}>
-                                {isSelected ? (
-                                    <EditableCarName key={car.id} car={car} />
-                                    ) : (
-                                    <Input 
-                                        value={car.name}
-                                        variant='slider'
-                                        onChange={() => 
-                                                console.log('по идеи этот инпут не имеет возможности редактирования')}
-                                        
-                                    />
-                                )}
-                            </div>
-                        </SwiperSlide>
-                    );
-                })}
-            </Swiper>
+            {cars.length > 0 ? 
+            <>
+                <h2 className={styles.car_title}>Ваши авто</h2>
+                <Swiper
+                    modules={[Navigation]}
+                    navigation
+                    spaceBetween={10}
+                    slidesPerView={'auto'}
+                    centeredSlidesBounds={true}
+                    centerInsufficientSlides={true}
+                    centeredSlides
+                    onSwiper={(swiper) => { swiperRef.current = swiper; }}
+                    breakpoints={{
+                        0: { slidesPerView: 'auto' },
+                        768: { slidesPerView: 'auto' }
+                    }}
+                >
+                    {cars.map((car, index) => {
+                        const isSelected = car.id === carSelected?.id;
+                        
+                        return (
+                            <SwiperSlide 
+                                key={car.id}
+                                onClick={() => handleSelectCar(car.id, index)}
+                            >
+                                <div className={cn(
+                                    styles.slide,
+                                    isSelected && styles.slide_active
+                                )}>
+                                    {isSelected ? (
+                                        <EditableCarName key={car.id} car={car} />
+                                        ) : (
+                                        <Input 
+                                            value={car.name}
+                                            variant='slider'
+                                            onChange={() => 
+                                                    console.log('по идеи этот инпут не имеет возможности редактирования')}
+                                            
+                                        />
+                                    )}
+                                </div>
+                            </SwiperSlide>
+                        );
+                    })}
+                </Swiper> 
+            </>
+                : 
+                <h2 className={styles.car_title}>Ваши авто: пусто</h2>
+            
+            }
 
             <div className={styles.add_car_wrapper}>
                 <Dropdown
@@ -104,5 +112,6 @@ export const CarSlider = () => {
                 </Dropdown>
             </div>
         </div>
+        </>
     )
 }
