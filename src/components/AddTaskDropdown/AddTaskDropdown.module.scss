@@ -1,0 +1,38 @@
+ @use '../../shared/styles/variables' as *;
+ @use '../../shared/styles/mixins' as *;
+
+.collapsible {
+  display: block;
+  width: 100%;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: 0;
+  transform: translateY(-10px);
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              margin-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.open {
+    max-height: 35px;
+    // margin-top: 6px;
+    opacity: 1;
+    transform: translateY(0);
+    overflow: visible;
+  }
+  
+}
+
+.input_date {
+  border: 1px solid $input-border;
+  border-radius: 4px;
+  max-height: 35px;
+  padding: 10px;
+  box-sizing: border-box;
+  @include text-input;
+}
+
+.date_mt6px {
+  margin-top: 6px;
+}

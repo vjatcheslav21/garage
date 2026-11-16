@@ -1,0 +1,44 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.editing_mode {
+  background-color: var(--bg-dropdown); 
+  box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+  min-width: min-content;
+  min-height: min-content;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.edit_form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit_textarea {
+  padding: 8px;
+  border: 1px solid $input-border;
+  border-radius: 4px;
+  width: 100%;
+  resize: vertical; 
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.edit_btns {
+  display: flex;
+  margin-top: 10px;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.input_disabled {
+  opacity: 0.8;
+  background-color: transparent;
+}
+
+

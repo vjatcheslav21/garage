@@ -1,0 +1,20 @@
+@use '../../shared/styles/variables' as *; 
+@use '../../shared/styles/mixins' as *;
+
+.nav {
+    &_list {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    &_item-link {
+        @include text-h4;
+        cursor: pointer;
+        &:hover {
+            color: var(--nav-link-hover);
+        }
+        &-active {
+            color: var(--nav-link-hover);
+        }
+    }
+}

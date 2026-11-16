@@ -1,0 +1,32 @@
+@use '../../shared/styles/variables' as *;
+@use '../../shared/styles/mixins' as *; 
+
+.auth {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+    background-color: var(--accent-bg);
+    justify-content: space-between;
+    min-height: 250px;
+    &_wrapper {
+        display: flex;
+        justify-content: space-around;
+        @media(max-width: 576px) {
+            flex-direction: column;
+            place-self: center;
+            gap: 15px;
+        }
+    }
+    &_title {
+        @include text-h2;
+    }
+    &_p {
+        text-align: end; 
+        a {
+            transition: all .1s ease;
+            &:hover {
+                color: var(--link-hover-light);
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+@use '../../shared/styles/variables' as *;
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    padding: 60px 20px;
+    background-color: var(--accent-bg);
+    justify-content: space-between;
+    min-height: 250px;
+    --label-color: #3a3a4a;
+    &__info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    &__settings {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-top: 20px;
+    }
+}
+

@@ -1,31 +1,49 @@
 @use '../styles/variables' as *;
 
 @mixin text-h {
-	color: $text-h;
+	color: var(--text-h);
 	font-family: $font-heading;
 }
 
 @mixin text-h1 {
 	@include text-h;
 	font-size: 100px;
-	line-height: 40px;
+	@media (width <= 1024px) {
+		font-size: 86px;
+	}
+	@media (width <= 576px) {
+		font-size: 66px;
+	}
 }
 
 @mixin text-h2 {
-	font-size: 24px;
-	line-height: 32px;
+	// color: var(--text-h);
+	font-size: 30px;
+	@media (width <= 1024px) {
+		font-size: 26px;
+	}
+	@media (width <= 768px) {
+		font-size: 22px;
+	}
+	@media (width <= 576px) {
+		font-size: 20px;
+	}
 }
 
 @mixin text-h3 {
-	font-size: 20px;
-	line-height: 24px;
+	font-size: 26px;
+	@media (width <= 1024px) {
+		font-size: 20px;
+	}
+	@media (width <= 576px) {
+		font-size: 16px;
+	}
 }
 
 @mixin text-h4 {
 	font-family: $font-base;
 	font-weight: 500;
 	font-size: 16px;
-	line-height: 24px;
 }
 
 @mixin text-descr {
@@ -33,12 +51,37 @@
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 16px;
+	color: var(--text-desc);
+}
+
+@mixin text-notification {
+	font-family: $font-base;
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 16px;
+	color: black;
 }
 
 @mixin text-btn {
 	font-family: $font-base;
 	font-weight: 400;
-	font-size: 20px;
+	font-size: 13px;
 	line-height: 16px;
+	color: var(--text-btn);
+}
+
+@mixin text-input {
+	font-family: $font-base;
+	font-weight: 500;
+	font-size: max(1rem, 16px);
+	color: var(--text-input);
+}
+
+@mixin text-error {
+	font-family: $font-base;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16px;
+	color: var(--text-error);
 }
 /* stylelint-enable at-rule-no-unknown */

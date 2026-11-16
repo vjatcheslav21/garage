@@ -1,61 +1,69 @@
-import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from './assets/vite.svg'
-// import heroImg from './assets/hero.png'
-import './App.css'
-import { Logo } from './shared/ui/Logo/Logo';
+import { Footer, Header } from '@/widgets';
+import './App.css';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { ProtectedRoute } from '@/components';
+import { AuthPage, CarPage, IntroPage, MainPage } from '@/pages';
+import { useAppSelector } from '@/storage/hooks/hooks';
+import { Profile } from '@/pages/ProfilePage';
+import { useEffect } from 'react';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const userIsAuth = useAppSelector(state => state.user.isAuth);
+  const cars = useAppSelector(state => state.cars.cars);
+  const theme = useAppSelector(state => state.user.themeColor);
+
+  useEffect(() => {
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem('theme', theme);
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeColorMeta) {
+          themeColorMeta.setAttribute('content', theme === 'dark' ? '#001232' : '#f4f3ec');
+      }
+  }, [ theme ]);
 
   return (
     <>
-    <header>
-      <Logo/>
-    </header>
-    <main></main>
-      <section id="center">
-        
-          
-          <p>
-            здесь будут ваши записи
-          </p>
-        
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-
-      <footer></footer>
-    </>
+      <Header/>
+        <Routes>
+          <Route 
+            path='/'
+            element={
+              <Navigate to={userIsAuth ? '/main' : '/login'}
+            />}/>
+          <Route 
+            path='/login' 
+            element={<AuthPage initialTab={'login'}/>}
+            />
+          <Route 
+            path='/signup' 
+            element={<AuthPage initialTab={'signup'}/>}
+            />
+          <Route 
+            path='/main' 
+            element={
+              <ProtectedRoute 
+                children={cars.length === 0 ? <IntroPage/> : <MainPage />}
+              />}
+          />
+          <Route 
+            path='/car' 
+            element={
+              <ProtectedRoute 
+                children={<CarPage/>}
+              />}
+          />
+          <Route 
+            path='/profile' 
+            element={
+              <ProtectedRoute 
+                children={<Profile/>}
+              />}
+          />
+        </Routes>
+        <Footer/>
+      </>
   )
 }
 

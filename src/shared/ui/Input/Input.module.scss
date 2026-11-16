@@ -1,0 +1,107 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.input_wrapper {
+    position: relative;
+    display: grid;
+}
+
+.input {
+    border: 1px solid $input-border;
+    border-radius: 4px;
+    padding: 10px;
+    max-height: 35px;
+    width: 100%;
+    background: var(--bg-input);
+    box-sizing: border-box;
+    @include text-input;
+    ::placeholder {
+        @include text-input;
+    }
+}
+
+.input_btn {
+    align-self: flex-end;
+}
+
+.password_btn {
+    position: absolute;
+    right: 10px; 
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+.input_radio_wrapper {
+    display: flex;
+    gap: 10px;
+    color: var(--text-desc-dropdown);
+}
+
+.radio_text  {
+    margin-left: 5px;
+    color: var(--label-color);
+}
+
+input[type="radio"] {
+    accent-color: var(--label-color);
+}
+
+.date_mt6px {
+  margin-top: 6px;
+}
+
+.inline {
+    margin-left: 10px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: inherit;
+    padding: 0;
+    cursor: pointer;
+}
+
+.inline:focus {
+    border-bottom: 1px solid var(--border-modal);
+    border-radius: 0px;
+}
+
+.slider {
+    justify-items: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: inherit;
+    font: inherit;
+    padding: 0;
+    cursor: default;
+    pointer-events: none;
+    @include text-h4;
+    &:focus {
+        border-bottom: none;
+    }
+}
+.inline-slider {
+    display: flex;
+    justify-items: center;
+    margin: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-car-slider);
+    padding: 0;
+    cursor: pointer;
+    @include text-h4;
+}
+
+.disabled {
+    opacity: 0.8;
+    background-color: transparent;
+}
+
+.password_btn {
+    position: absolute;
+}
